@@ -5,6 +5,8 @@ namespace FindAFriend.Domain;
 
 public class Institution : Entity
 {
+    private readonly List<Pet> _pets = [];
+    
     public Institution(
         string name,
         string responsibleName,
@@ -32,4 +34,8 @@ public class Institution : Entity
     public string Address { get; private set; }
     public string Phone { get; private set; }
     public string Password { get; private set; }
+    public IReadOnlyList<Pet> Pets => _pets;
+    
+    public void AddPet(Pet pet)
+        => _pets.Add(pet);
 }

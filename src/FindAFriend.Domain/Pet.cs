@@ -7,6 +7,7 @@ namespace FindAFriend.Domain;
 public class Pet : Entity
 {
     private readonly List<Photo> _photos = [];
+    private const int MAX_PHOTO_COUNT_SIZE = 3;
 
     public Pet(
         string name,
@@ -16,7 +17,8 @@ public class Pet : Entity
         EPetEnergyLevel energyLevel,
         EPetDependencyLevel dependencyLevel,
         EPetEnvironmentSize environmentSize,
-        EPetGender gender)
+        EPetGender gender,
+        Guid institutionId)
     {
         Name = name;
         About = about;
@@ -26,6 +28,7 @@ public class Pet : Entity
         DependencyLevel = dependencyLevel;
         EnvironmentSize = environmentSize;
         Gender = gender;
+        InstitutionId = institutionId;
 
         AddNotifications(new CreatePetContract(this));
     }
@@ -40,6 +43,16 @@ public class Pet : Entity
     public EPetGender Gender { get; private set; }
     public IReadOnlyList<Photo> Photos => _photos;
 
+    public Guid InstitutionId { get; private set; }
+
     public void AddPhoto(Photo photo)
-        => _photos.Add(photo);
+    {
+        if (_photos.Count >= MAX_PHOTO_COUNT_SIZE)
+        {
+            AddNotification("MaxPhotoCountSize", $"The maximum number of photos for a pet is {MAX_PHOTO_COUNT_SIZE}");
+            return;
+        }
+
+        _photos.Add(photo);
+    }
 }
