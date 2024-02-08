@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindAFriend.Domain", "src\FindAFriend.Domain\FindAFriend.Domain.csproj", "{26257B77-7DE2-4B93-B3CB-56DDA77C2194}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindAFriend.Test", "tests\FindAFriend.Test\FindAFriend.Test.csproj", "{0A450882-96C2-4D9D-AE36-6DBF5B4DC66D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindAFriend.Tests", "tests\FindAFriend.Tests\FindAFriend.Tests.csproj", "{0A450882-96C2-4D9D-AE36-6DBF5B4DC66D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindAFriend.UseCases", "src\FindAFriend.UseCases\FindAFriend.UseCases.csproj", "{0128135E-BB07-4191-9382-7145626C4634}"
 EndProject
