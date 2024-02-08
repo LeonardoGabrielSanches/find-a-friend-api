@@ -1,13 +1,12 @@
 using FindAFriend.Domain;
 using FindAFriend.Domain.Repositories;
 using FindAFriend.Infra.Common.UnitOfWork;
-using FindAFriend.UseCases.Common;
 using FindAFriend.UseCases.CreateInstitution;
 using FindAFriend.UseCases.CreateInstitution.Exceptions;
 
 using Moq;
 
-namespace FindAFriend.Test.UseCases;
+namespace FindAFriend.Test.UseCases.CreateInstitutionTest;
 
 public class CreateInstitutionUseCaseTest
 {
