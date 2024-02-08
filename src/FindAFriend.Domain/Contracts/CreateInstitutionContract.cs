@@ -13,6 +13,6 @@ public class CreateInstitutionContract : Contract<Institution>
             .IsNotNullOrEmpty(institution.Address, "Address", "Must be a valid address.")
             .IsNotNullOrEmpty(institution.ZipCode, "Zip Code", "Must be a valid zip code.")
             .IsNotNullOrEmpty(institution.Phone, "Phone", "Must be a valid phone number.")
-            .IsNotNullOrEmpty(institution.Password, "Password", "Password must not be null.");
+            .Matches(institution.Password, @"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$" ,"Password", "Password must be valid.");
     }
 }
