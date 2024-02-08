@@ -7,7 +7,4 @@ public record CreateInstitutionRequest(
     string ZipCode,
     string Address,
     string Phone,
-    string Password,
-    List<CreateInstitutionRequestFile> Files);
-
-public record CreateInstitutionRequestFile(string Name, byte[] File);
+    string Password);
