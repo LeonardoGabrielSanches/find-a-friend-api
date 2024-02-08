@@ -19,8 +19,8 @@ public class InstitutionTest
         Assert.True(institution.IsValid);
     }
     
-    [Fact(DisplayName = "Should not create a new institution when validation fails")]
-    public void ShouldNot_CreateInstitution()
+    [Fact(DisplayName = "Should create a new not valid institution")]
+    public void Should_CreateANotValidInstitution()
     {
         var institution = new Institution(
             name: "Institution",
