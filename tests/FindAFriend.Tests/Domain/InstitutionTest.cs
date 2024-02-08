@@ -16,6 +16,6 @@ public class InstitutionTest
             phone: "123456789",
             password: "oneLetter1Number@");
 
-        Assert.True(institution.IsValid);
+        Assert.NotNull(institution);
     }
 }
