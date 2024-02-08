@@ -1,7 +1,6 @@
 using FindAFriend.Domain;
 using FindAFriend.Domain.Repositories;
 using FindAFriend.Infra.Common.UnitOfWork;
-using FindAFriend.UseCases.Common;
 using FindAFriend.UseCases.CreateInstitution.Exceptions;
 
 namespace FindAFriend.UseCases.CreateInstitution;

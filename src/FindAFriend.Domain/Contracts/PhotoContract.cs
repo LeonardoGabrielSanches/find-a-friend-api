@@ -2,9 +2,9 @@ using Flunt.Validations;
 
 namespace FindAFriend.Domain.Contracts;
 
-public class CreatePhotoContract : Contract<Photo>
+public class PhotoContract : Contract<Photo>
 {
-    public CreatePhotoContract(Photo photo)
+    public PhotoContract(Photo photo)
     {
         Requires()
             .IsUrl(photo.Url, "Url");

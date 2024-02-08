@@ -2,9 +2,9 @@ using Flunt.Validations;
 
 namespace FindAFriend.Domain.Contracts;
 
-public class CreatePetContract : Contract<Pet>
+public class PetContract : Contract<Pet>
 {
-    public CreatePetContract(Pet pet)
+    public PetContract(Pet pet)
     {
         Requires()
             .IsNotNullOrEmpty(pet.Name, "Name")

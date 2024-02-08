@@ -1,6 +1,7 @@
 using FindAFriend.Domain;
 using FindAFriend.Domain.Repositories;
 using FindAFriend.Infra.Common.UnitOfWork;
+using FindAFriend.UseCases.Common;
 using FindAFriend.UseCases.CreateInstitution;
 using FindAFriend.UseCases.CreateInstitution.Exceptions;
 
@@ -14,15 +15,6 @@ public class CreateInstitutionUseCaseTest
     private readonly Mock<IUnitOfWork> _unitOfWork = new();
     private readonly CreateInstitutionUseCase _sut;
 
-    private readonly CreateInstitutionRequest _request = new(
-        "name",
-        "responsibleName",
-        "email",
-        "zipCode",
-        "address",
-        "phone",
-        "password");
-
     public CreateInstitutionUseCaseTest()
     {
         _sut = new CreateInstitutionUseCase(_institutionRepository.Object, _unitOfWork.Object);
@@ -33,14 +25,32 @@ public class CreateInstitutionUseCaseTest
     {
         _institutionRepository.Setup(x => x.GetByEmail(It.IsAny<string>())).ReturnsAsync(new Institution("name",
             "responsibleName", "email", "zipCode", "address", "phone", "password"));
+        
+        var validRequest = new CreateInstitutionRequest(
+            "name",
+            "responsibleName",
+            "email@example.com",
+            "zipCode",
+            "address",
+            "phone",
+            "password@1234");
 
-        await Assert.ThrowsAsync<InstitutionAlreadyRegisteredException>(() => _sut.Execute(_request));
+        await Assert.ThrowsAsync<InstitutionAlreadyRegisteredException>(() => _sut.Execute(validRequest));
     }
 
     [Fact(DisplayName = "Should create a new institution")]
     public async Task Should_CreateANewInstitution()
     {
-        await _sut.Execute(_request);
+        var validRequest = new CreateInstitutionRequest(
+            "name",
+            "responsibleName",
+            "email@example.com",
+            "zipCode",
+            "address",
+            "phone",
+            "oneLetter1Number@");
+        
+        await _sut.Execute(validRequest);
 
         _institutionRepository.Verify(x => x.Add(It.IsAny<Institution>()), Times.Once);
         _unitOfWork.Verify(x => x.Commit(), Times.Once);

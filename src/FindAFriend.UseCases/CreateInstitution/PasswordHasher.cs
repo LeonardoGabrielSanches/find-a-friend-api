@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace FindAFriend.UseCases.Common;
+namespace FindAFriend.UseCases.CreateInstitution;
 
 public static class PasswordHasher
 {

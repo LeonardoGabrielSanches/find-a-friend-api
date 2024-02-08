@@ -2,9 +2,9 @@ using Flunt.Validations;
 
 namespace FindAFriend.Domain.Contracts;
 
-public class CreateInstitutionContract : Contract<Institution>
+public class InstitutionContract : Contract<Institution>
 {
-    public CreateInstitutionContract(Institution institution)
+    public InstitutionContract(Institution institution)
     {
         Requires()
             .IsNotNullOrEmpty(institution.Name, "Name")
@@ -13,6 +13,6 @@ public class CreateInstitutionContract : Contract<Institution>
             .IsNotNullOrEmpty(institution.Address, "Address")
             .IsNotNullOrEmpty(institution.ZipCode, "Zip Code")
             .IsNotNullOrEmpty(institution.Phone, "Phone")
-            .Matches(institution.Password, @"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$" ,"Password", "Password must be valid.");
+            .IsNotNullOrEmpty(institution.Password, "Password");
     }
 }

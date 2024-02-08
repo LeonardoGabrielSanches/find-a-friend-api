@@ -30,7 +30,7 @@ public class Pet : Entity
         Gender = gender;
         InstitutionId = institutionId;
 
-        AddNotifications(new CreatePetContract(this));
+        AddNotifications(new PetContract(this));
     }
 
     public string Name { get; private set; }

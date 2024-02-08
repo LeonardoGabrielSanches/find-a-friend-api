@@ -10,7 +10,7 @@ public class Photo : Entity
         Url = url;
         PetId = petId;
         
-        AddNotifications(new CreatePhotoContract(this));
+        AddNotifications(new PhotoContract(this));
     }
 
     public string Url { get; private set; }
