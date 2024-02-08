@@ -1,6 +1,20 @@
+using Flunt.Validations;
+
 namespace FindAFriend.UseCases.CreatePet;
 
-public class CreatePetRequestContract
+public class CreatePetRequestContract : Contract<CreatePetRequest>
 {
+    public CreatePetRequestContract(CreatePetRequest createPetRequest)
+    {
+        // Requires()
+        //     .IsNotNullOrEmpty(createPetRequest.Name, "Name")
+        //     .IsNotNullOrEmpty(createPetRequest.About, "About")
+        //     .IsNotNull(createPetRequest.Age, "Age")
+        //     .IsNotNull(createPetRequest.Gender, "Gender")
+        //     .IsNotNull(createPetRequest.Size, "Size")
+        //     .IsNotNull(createPetRequest.DependencyLevel, "DependencyLevel")
+        //     .IsNotNull(createPetRequest.EnvironmentSize, "EnvironmentSize");
+    }
     
+    //Add filessss
 }

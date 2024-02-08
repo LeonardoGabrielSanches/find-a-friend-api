@@ -1,5 +1,3 @@
-using Flunt.Notifications;
-
 namespace FindAFriend.Domain.Core;
 
 public abstract class Entity
