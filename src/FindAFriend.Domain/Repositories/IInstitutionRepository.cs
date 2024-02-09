@@ -4,4 +4,5 @@ public interface IInstitutionRepository
 {
     void Add(Institution institution);
     Task<Institution> GetByEmail(string email);
+    Task<Institution> GetById(Guid id);
 }

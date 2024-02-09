@@ -4,18 +4,34 @@ using FindAFriend.UseCases.Common;
 namespace FindAFriend.UseCases.CreatePet;
 
 public class CreatePetRequest(
-    string Name,
-    string About,
-    EPetAge Age,
-    EPetSize Size,
-    EPetEnergyLevel EnergyLevel,
-    EPetDependencyLevel DependencyLevel,
-    EPetEnvironmentSize EnvironmentSize,
-    EPetGender Gender,
-    Guid InstitutionId) : Request
+    string name,
+    string about,
+    EPetAge age,
+    EPetSize size,
+    EPetEnergyLevel energyLevel,
+    EPetDependencyLevel dependencyLevel,
+    EPetEnvironmentSize environmentSize,
+    EPetGender gender,
+    Guid institutionId) : Request
 {
+    public string Name { get; } = name;
+    public string About { get; } = about;
+    public EPetAge Age { get; } = age;
+    public EPetSize Size { get; } = size;
+    public EPetEnergyLevel EnergyLevel { get; } = energyLevel;
+    public EPetDependencyLevel DependencyLevel { get; } = dependencyLevel;
+    public EPetEnvironmentSize EnvironmentSize { get; } = environmentSize;
+    public EPetGender Gender { get; } = gender;
+    public Guid InstitutionId { get; } = institutionId;
+    public List<CreatePetRequestFiles> Files { get; } = [];
+
     public override void Validate()
     {
-        throw new NotImplementedException();
+        AddNotifications(new CreatePetRequestContract(this));
     }
+
+    public void AddFile(CreatePetRequestFiles file)
+        => Files.Add(file);
 }
+
+public record CreatePetRequestFiles(string Name, byte[] Bytes);
