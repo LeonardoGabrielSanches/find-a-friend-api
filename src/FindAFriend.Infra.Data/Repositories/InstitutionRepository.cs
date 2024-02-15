@@ -3,7 +3,7 @@ using FindAFriend.Domain.Repositories;
 
 using Microsoft.EntityFrameworkCore;
 
-namespace FindAFriend.Infrastructure.Repositories;
+namespace FindAFriend.Infra.Data.Repositories;
 
 public class InstitutionRepository(FindAFriendContext context) : IInstitutionRepository
 {

@@ -1,5 +1,5 @@
 using FindAFriend.Domain.Repositories;
-using FindAFriend.Infrastructure.Repositories;
+using FindAFriend.Infra.Data.Repositories;
 using FindAFriend.UseCases.CreateInstitution;
 
 namespace FindAFriend.Api.Extensions;

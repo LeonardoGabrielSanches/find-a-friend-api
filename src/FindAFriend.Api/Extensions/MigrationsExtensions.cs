@@ -1,4 +1,4 @@
-using FindAFriend.Infrastructure;
+using FindAFriend.Infra.Data;
 
 using Microsoft.EntityFrameworkCore;
 

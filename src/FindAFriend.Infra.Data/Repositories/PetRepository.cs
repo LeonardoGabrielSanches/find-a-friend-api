@@ -1,7 +1,7 @@
 using FindAFriend.Domain;
 using FindAFriend.Domain.Repositories;
 
-namespace FindAFriend.Infrastructure.Repositories;
+namespace FindAFriend.Infra.Data.Repositories;
 
 public class PetRepository(FindAFriendContext context) : IPetRepository
 {

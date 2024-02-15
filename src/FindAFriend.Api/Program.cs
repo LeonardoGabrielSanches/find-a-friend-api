@@ -3,7 +3,7 @@ using System.Net;
 using FindAFriend.Api.Endpoints;
 using FindAFriend.Api.Extensions;
 using FindAFriend.Domain.Exceptions;
-using FindAFriend.Infrastructure;
+using FindAFriend.Infra.Data;
 
 using Microsoft.EntityFrameworkCore;
 

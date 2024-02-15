@@ -24,7 +24,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\FindAFriend.Infrastructure\FindAFriend.Infrastructure.csproj" />
+      <ProjectReference Include="..\FindAFriend.Infra.Data\FindAFriend.Infra.Data.csproj" />
       <ProjectReference Include="..\FindAFriend.UseCases\FindAFriend.UseCases.csproj" />
     </ItemGroup>
 

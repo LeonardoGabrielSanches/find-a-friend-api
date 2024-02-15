@@ -2,7 +2,7 @@ using FindAFriend.Domain;
 
 using Microsoft.EntityFrameworkCore;
 
-namespace FindAFriend.Infrastructure;
+namespace FindAFriend.Infra.Data;
 
 public class FindAFriendContext(DbContextOptions<FindAFriendContext> options) : DbContext(options)
 {

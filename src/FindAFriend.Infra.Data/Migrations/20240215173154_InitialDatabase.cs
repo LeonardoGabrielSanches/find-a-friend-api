@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace FindAFriend.Infrastructure.Migrations
+namespace FindAFriend.Infra.Data.Migrations
 {
     /// <inheritdoc />
     public partial class InitialDatabase : Migration
