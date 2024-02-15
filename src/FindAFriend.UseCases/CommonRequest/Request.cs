@@ -1,4 +1,4 @@
-using FluentValidation.Results;
+using ValidationResult = FluentValidation.Results.ValidationResult;
 
 namespace FindAFriend.UseCases.CommonRequest;
 
@@ -8,7 +8,8 @@ public abstract class Request
 
     public abstract Task Validate();
 
-    public IReadOnlyCollection<string> Notifications => _notifications;
+    public IEnumerable<string> Notifications => _notifications;
+    
     public bool IsValid => _notifications.Count <= 0;
 
     protected void AddNotifications(ValidationResult validationResult)

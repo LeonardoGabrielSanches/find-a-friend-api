@@ -1,5 +1,6 @@
 using System.Net;
 
+using FindAFriend.Api.Filters;
 using FindAFriend.UseCases.CreateInstitution;
 
 namespace FindAFriend.Api.Endpoints;
@@ -16,7 +17,8 @@ public static class InstitutionEndpoints
             .WithOpenApi();
     }
 
-    static async Task CreateInstitution(CreateInstitutionUseCase createInstitutionUseCase,
+    static async Task CreateInstitution(
+        CreateInstitutionUseCase createInstitutionUseCase,
         CreateInstitutionRequest request)
     {
         await createInstitutionUseCase.Execute(request);

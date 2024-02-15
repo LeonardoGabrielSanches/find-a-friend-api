@@ -4,6 +4,7 @@ using FindAFriend.Api.Endpoints;
 using FindAFriend.Api.Extensions;
 using FindAFriend.Domain.Exceptions;
 using FindAFriend.Infrastructure;
+using FindAFriend.UseCases.CommonRequest;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -44,7 +45,7 @@ app.Use(async (httpContext, next) =>
     catch (DomainException applicationException)
     {
         httpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-        await httpContext.Response.WriteAsJsonAsync(new { error = applicationException.Message });
+        await httpContext.Response.WriteAsJsonAsync(new { errors = new[] { applicationException.Message } });
     }
     catch (Exception e)
     {
