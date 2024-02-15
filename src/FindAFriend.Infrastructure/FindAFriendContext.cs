@@ -8,7 +8,7 @@ public class FindAFriendContext(DbContextOptions<FindAFriendContext> options) : 
 {
     public DbSet<Pet> Pets { get; set; }
     public DbSet<Institution> Institutions { get; set; }
-
+    
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder
             .UseSnakeCaseNamingConvention();
