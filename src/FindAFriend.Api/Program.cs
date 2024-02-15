@@ -55,3 +55,5 @@ app.Use(async (httpContext, next) =>
 });
 
 app.Run();
+
+public partial class Program { }

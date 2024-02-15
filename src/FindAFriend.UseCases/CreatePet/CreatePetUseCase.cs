@@ -39,6 +39,6 @@ public class CreatePetUseCase(
             pet.AddPhoto(new Photo(uploadFileResponse.Url, pet.Id));
         }
     
-        petRepository.Add(pet);
+        await petRepository.Add(pet);
     }
 }

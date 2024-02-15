@@ -25,6 +25,6 @@ public class CreateInstitutionUseCase(
             phone: request.Phone,
             password: passwordHash);
 
-        institutionRepository.Add(institution);
+        await institutionRepository.Add(institution);
     }
 }

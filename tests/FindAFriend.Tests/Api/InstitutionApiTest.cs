@@ -3,24 +3,21 @@ using System.Net.Http.Json;
 
 using FindAFriend.UseCases.CreateInstitution;
 
-using Microsoft.AspNetCore.Mvc.Testing;
-
 namespace FindAFriend.Test.Api;
 
-public class InstitutionApiTest
+[Collection("Integration")]
+public class InstitutionApiTest(CustomWebApplication customWebApplication)
 {
+    private readonly HttpClient _httpClient = customWebApplication.HttpClient;
+
     [Fact(DisplayName = "Should create a new institution")]
     [Category("Integration")]
     public async Task Should_CreateANewInstitution()
     {
-        var webApplicationFactory = new WebApplicationFactory<Program>();
-
-        var client = webApplicationFactory.CreateClient();
-
-        var response = await client.PostAsJsonAsync("/institutions", new CreateInstitutionRequest(
+        var response = await _httpClient.PostAsJsonAsync("/api/institutions", new CreateInstitutionRequest(
             name: "Institution",
             responsibleName: "Responsible",
-            email: "email@example.com",
+            email: "email2@example.com",
             zipCode: "12345",
             address: "Address",
             phone: "123456789",

@@ -8,7 +8,7 @@ public static class InstitutionEndpoints
 {
     public static void RegisterInstitutionEndpoints(this RouteGroupBuilder routeGroupBuilder)
     {
-        var petsGroupBuilder = routeGroupBuilder.MapGroup("institution");
+        var petsGroupBuilder = routeGroupBuilder.MapGroup("institutions");
 
         petsGroupBuilder.MapPost("/", CreateInstitution)
             .WithName("CreateInstitution")
