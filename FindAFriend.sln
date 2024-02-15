@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindAFriend.Infra.Common", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindAFriend.Api", "src\FindAFriend.Api\FindAFriend.Api.csproj", "{2211EE0E-F5CC-47CC-9D22-3C725E5BDD49}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindAFriend.Infrastructure", "src\FindAFriend.Infrastructure\FindAFriend.Infrastructure.csproj", "{722B7519-5B55-49CE-A388-FEF95F3E71DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{2211EE0E-F5CC-47CC-9D22-3C725E5BDD49}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2211EE0E-F5CC-47CC-9D22-3C725E5BDD49}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2211EE0E-F5CC-47CC-9D22-3C725E5BDD49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{722B7519-5B55-49CE-A388-FEF95F3E71DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{722B7519-5B55-49CE-A388-FEF95F3E71DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{722B7519-5B55-49CE-A388-FEF95F3E71DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{722B7519-5B55-49CE-A388-FEF95F3E71DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

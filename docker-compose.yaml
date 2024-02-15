@@ -1,0 +1,17 @@
+version: '3.4'
+
+services: 
+
+  db:
+    image: postgres
+    volumes:
+      - ./db.sql:/docker-entrypoint-initdb.d/db.sql
+    environment:
+      POSTGRES_PASSWORD: super@hard10@Password
+    ports:
+      - "5432:5432"
+
+  backend:
+    build:
+      context: .
+      dockerfile: ./src/FindAFriend.Api/Dockerfile
