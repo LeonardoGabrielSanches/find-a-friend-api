@@ -1,7 +1,6 @@
 using FindAFriend.Domain.Repositories;
 using FindAFriend.Infrastructure.Repositories;
 using FindAFriend.UseCases.CreateInstitution;
-using FindAFriend.UseCases.CreatePet;
 
 namespace FindAFriend.Api.Extensions;
 

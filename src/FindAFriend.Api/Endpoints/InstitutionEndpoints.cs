@@ -1,6 +1,5 @@
 using System.Net;
 
-using FindAFriend.Api.Filters;
 using FindAFriend.UseCases.CreateInstitution;
 
 namespace FindAFriend.Api.Endpoints;
