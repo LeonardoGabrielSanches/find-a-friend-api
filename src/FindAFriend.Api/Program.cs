@@ -1,4 +1,5 @@
 using FindAFriend.Api.Endpoints;
+using FindAFriend.Api.Extensions;
 using FindAFriend.Infrastructure;
 
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddCors();
 builder.Services.AddDbContext<FindAFriendContext>(options =>
     options.UseNpgsql(builder.Configuration["ConnectionString:DefaultConnection"]));
+builder.AddApplicationServices();
 
 var app = builder.Build();
 

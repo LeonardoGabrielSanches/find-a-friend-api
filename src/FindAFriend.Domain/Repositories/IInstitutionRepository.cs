@@ -3,6 +3,6 @@ namespace FindAFriend.Domain.Repositories;
 public interface IInstitutionRepository
 {
     void Add(Institution institution);
-    Task<Institution> GetByEmail(string email);
-    Task<Institution> GetById(Guid id);
+    Task<Institution?> GetByEmail(string email);
+    Task<Institution?> GetById(Guid id);
 }

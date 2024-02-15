@@ -24,8 +24,4 @@
       <ProjectReference Include="..\FindAFriend.UseCases\FindAFriend.UseCases.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Extensions\" />
-    </ItemGroup>
-
 </Project>

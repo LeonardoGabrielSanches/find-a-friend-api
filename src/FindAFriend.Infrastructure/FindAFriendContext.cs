@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FindAFriend.Infrastructure;
 
-public class FindAFriendContext : DbContext
+public class FindAFriendContext(DbContextOptions<FindAFriendContext> options) : DbContext(options)
 {
     public DbSet<Pet> Pets { get; set; }
     public DbSet<Institution> Institutions { get; set; }

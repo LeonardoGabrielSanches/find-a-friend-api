@@ -15,6 +15,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\FindAFriend.Domain\FindAFriend.Domain.csproj" />
+      <ProjectReference Include="..\FindAFriend.Infra.Common\FindAFriend.Infra.Common.csproj" />
     </ItemGroup>
 
 </Project>
