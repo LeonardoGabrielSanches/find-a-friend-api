@@ -6,5 +6,6 @@ public static class Endpoints
     {
         var apiGroupBuilder = app.MapGroup("/api");
         apiGroupBuilder.RegisterPetEndpoints();
+        apiGroupBuilder.RegisterInstitutionEndpoints();
     }
 }
