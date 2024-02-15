@@ -1,7 +1,6 @@
 using FindAFriend.Domain;
 using FindAFriend.Domain.Exceptions;
 using FindAFriend.Domain.Repositories;
-using FindAFriend.Infra.Common.UnitOfWork;
 using FindAFriend.Infra.Common.UploadFile;
 using FindAFriend.UseCases.CreatePet.Exceptions;
 
@@ -10,8 +9,7 @@ namespace FindAFriend.UseCases.CreatePet;
 public class CreatePetUseCase(
     IInstitutionRepository institutionRepository,
     IUploadFile uploadFile,
-    IPetRepository petRepository,
-    IUnitOfWork unitOfWork)
+    IPetRepository petRepository)
 {
     public async Task Execute(CreatePetRequest request)
     {
@@ -42,7 +40,5 @@ public class CreatePetUseCase(
         }
     
         petRepository.Add(pet);
-
-        await unitOfWork.Commit();
     }
 }

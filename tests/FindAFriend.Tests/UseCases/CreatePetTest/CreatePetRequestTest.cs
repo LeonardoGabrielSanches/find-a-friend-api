@@ -6,7 +6,7 @@ namespace FindAFriend.Test.UseCases.CreatePetTest;
 public class CreatePetRequestTest
 {
     [Fact(DisplayName = "Should create a new request with valid values")]
-    public void Should_CreateARequest_WithValidValues()
+    public async Task Should_CreateARequest_WithValidValues()
     {
         var request = new CreatePetRequest(
             name: "Pet",
@@ -18,14 +18,14 @@ public class CreatePetRequestTest
             dependencyLevel: EPetDependencyLevel.High,
             environmentSize: EPetEnvironmentSize.Small,
             institutionId: Guid.NewGuid());
-        
-        request.Validate();
+
+        await request.Validate();
 
         Assert.True(request.IsValid);
     }
-    
+
     [Fact(DisplayName = "Should create a new request with invalid values")]
-    public void Should_CreateARequest_WithInvalidValues()
+    public async Task Should_CreateARequest_WithInvalidValues()
     {
         var request = new CreatePetRequest(
             name: "",
@@ -37,9 +37,9 @@ public class CreatePetRequestTest
             dependencyLevel: EPetDependencyLevel.High,
             environmentSize: EPetEnvironmentSize.Small,
             institutionId: Guid.NewGuid());
-        
-        request.Validate();
-        
+
+        await request.Validate();
+
         Assert.False(request.IsValid);
     }
 }

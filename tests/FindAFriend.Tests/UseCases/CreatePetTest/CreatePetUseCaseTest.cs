@@ -2,7 +2,6 @@ using FindAFriend.Domain;
 using FindAFriend.Domain.Enums;
 using FindAFriend.Domain.Exceptions;
 using FindAFriend.Domain.Repositories;
-using FindAFriend.Infra.Common.UnitOfWork;
 using FindAFriend.Infra.Common.UploadFile;
 using FindAFriend.UseCases.CreatePet;
 using FindAFriend.UseCases.CreatePet.Exceptions;
@@ -16,7 +15,6 @@ public class CreatePetUseCaseTest
     private readonly Mock<IInstitutionRepository> _institutionRepository = new();
     private readonly Mock<IUploadFile> _uploadFile = new();
     private readonly Mock<IPetRepository> _petRepository = new();
-    private readonly Mock<IUnitOfWork> _unitOfWork = new();
     private readonly CreatePetUseCase _sut;
 
     public CreatePetUseCaseTest()
@@ -24,8 +22,7 @@ public class CreatePetUseCaseTest
         _sut = new CreatePetUseCase(
             _institutionRepository.Object,
             _uploadFile.Object,
-            _petRepository.Object,
-            _unitOfWork.Object);
+            _petRepository.Object);
     }
 
     [Fact(DisplayName = "Should not create a new pet with invalid institution")]
@@ -109,6 +106,5 @@ public class CreatePetUseCaseTest
         await _sut.Execute(validRequest);
 
         _petRepository.Verify(x => x.Add(It.IsAny<Pet>()), Times.Once);
-        _unitOfWork.Verify(x => x.Commit(), Times.Once);
     }
 }

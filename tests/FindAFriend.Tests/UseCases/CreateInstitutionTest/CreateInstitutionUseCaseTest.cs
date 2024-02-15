@@ -11,12 +11,11 @@ namespace FindAFriend.Test.UseCases.CreateInstitutionTest;
 public class CreateInstitutionUseCaseTest
 {
     private readonly Mock<IInstitutionRepository> _institutionRepository = new();
-    private readonly Mock<IUnitOfWork> _unitOfWork = new();
     private readonly CreateInstitutionUseCase _sut;
 
     public CreateInstitutionUseCaseTest()
     {
-        _sut = new CreateInstitutionUseCase(_institutionRepository.Object, _unitOfWork.Object);
+        _sut = new CreateInstitutionUseCase(_institutionRepository.Object);
     }
 
     [Fact(DisplayName = "Should not create a new institution with same email")]
@@ -52,6 +51,5 @@ public class CreateInstitutionUseCaseTest
         await _sut.Execute(validRequest);
 
         _institutionRepository.Verify(x => x.Add(It.IsAny<Institution>()), Times.Once);
-        _unitOfWork.Verify(x => x.Commit(), Times.Once);
     }
 }

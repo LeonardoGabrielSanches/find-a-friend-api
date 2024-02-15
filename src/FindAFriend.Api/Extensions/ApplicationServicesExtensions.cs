@@ -1,6 +1,4 @@
 using FindAFriend.Domain.Repositories;
-using FindAFriend.Infra.Common.UnitOfWork;
-using FindAFriend.Infrastructure;
 using FindAFriend.Infrastructure.Repositories;
 using FindAFriend.UseCases.CreatePet;
 
@@ -17,8 +15,6 @@ public static class ApplicationServicesExtensions
 
     static WebApplicationBuilder AddRepositories(this WebApplicationBuilder builder)
     {
-        builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
         builder.Services.AddScoped<IInstitutionRepository, InstitutionRepository>();
         builder.Services.AddScoped<IPetRepository, PetRepository>();
 
