@@ -6,3 +6,4 @@ riderModule.iml
 .idea/
 .DS_Store
 FindAFriend.sln.DotSettings.user
+db.sql
