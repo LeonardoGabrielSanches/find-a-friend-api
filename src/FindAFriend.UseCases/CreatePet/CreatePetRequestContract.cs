@@ -1,20 +1,19 @@
-using Flunt.Validations;
+using FluentValidation;
 
 namespace FindAFriend.UseCases.CreatePet;
 
-public class CreatePetRequestContract : Contract<CreatePetRequest>
+public class CreatePetRequestContract : AbstractValidator<CreatePetRequest>
 {
-    public CreatePetRequestContract(CreatePetRequest createPetRequest)
+    public CreatePetRequestContract()
     {
-        Requires()
-            .IsNotNullOrEmpty(createPetRequest.Name, "Name")
-            .IsNotNullOrEmpty(createPetRequest.About, "About")
-            .IsNotNull(createPetRequest.Age, "Age")
-            .IsNotNull(createPetRequest.Gender, "Gender")
-            .IsNotNull(createPetRequest.Size, "Size")
-            .IsNotNull(createPetRequest.EnergyLevel, "EnergyLevel")
-            .IsNotNull(createPetRequest.DependencyLevel, "DependencyLevel")
-            .IsNotNull(createPetRequest.EnvironmentSize, "EnvironmentSize")
-            .IsNotNull(createPetRequest.InstitutionId, "InstitutionId");
+        RuleFor(x => x.Name).NotNull().NotEmpty();
+        RuleFor(x => x.About).NotNull().NotEmpty();
+        RuleFor(x => x.Age).NotNull().NotEmpty();
+        RuleFor(x => x.Gender).NotNull().NotEmpty();
+        RuleFor(x => x.Size).NotNull().NotEmpty();
+        RuleFor(x => x.EnergyLevel).NotNull().NotEmpty();
+        RuleFor(x => x.DependencyLevel).NotNull().NotEmpty();
+        RuleFor(x => x.EnvironmentSize).NotNull().NotEmpty();
+        RuleFor(x => x.InstitutionId).NotNull().NotEmpty();
     }
 }

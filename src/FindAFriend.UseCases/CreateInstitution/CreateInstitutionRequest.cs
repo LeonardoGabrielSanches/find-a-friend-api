@@ -1,5 +1,4 @@
-using FindAFriend.UseCases.Common;
-
+using FindAFriend.UseCases.CommonRequest;
 
 namespace FindAFriend.UseCases.CreateInstitution;
 
@@ -20,8 +19,8 @@ public class CreateInstitutionRequest(
     public string Phone { get; } = phone;
     public string Password { get; } = password;
 
-    public override void Validate()
+    public async override Task Validate()
     {
-        AddNotifications(new CreateInstitutionRequestContract(this));
+        AddNotifications(await new CreateInstitutionRequestContract().ValidateAsync(this));
     }
 }

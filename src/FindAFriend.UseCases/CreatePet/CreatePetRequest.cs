@@ -1,5 +1,5 @@
 using FindAFriend.Domain.Enums;
-using FindAFriend.UseCases.Common;
+using FindAFriend.UseCases.CommonRequest;
 
 namespace FindAFriend.UseCases.CreatePet;
 
@@ -25,9 +25,9 @@ public class CreatePetRequest(
     public Guid InstitutionId { get; } = institutionId;
     public List<CreatePetRequestFiles> Files { get; } = [];
 
-    public override void Validate()
+    public async override Task Validate()
     {
-        AddNotifications(new CreatePetRequestContract(this));
+        AddNotifications(await new CreatePetRequestContract().ValidateAsync(this));
     }
 
     public void AddFile(CreatePetRequestFiles file)

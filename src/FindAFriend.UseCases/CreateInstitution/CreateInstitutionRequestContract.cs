@@ -1,20 +1,18 @@
-using Flunt.Validations;
+using FluentValidation;
 
 namespace FindAFriend.UseCases.CreateInstitution;
 
-public class CreateInstitutionRequestContract : Contract<CreateInstitutionRequest>
+public class CreateInstitutionRequestContract : AbstractValidator<CreateInstitutionRequest>
 {
-    public CreateInstitutionRequestContract(CreateInstitutionRequest createInstitutionRequest)
+    public CreateInstitutionRequestContract()
     {
-        Requires()
-            .IsNotNullOrEmpty(createInstitutionRequest.Name, "Name")
-            .IsNotNullOrEmpty(createInstitutionRequest.ResponsibleName, "Responsible Name")
-            .IsEmail(createInstitutionRequest.Email, "Email")
-            .IsNotNullOrEmpty(createInstitutionRequest.Address, "Address")
-            .IsNotNullOrEmpty(createInstitutionRequest.ZipCode, "Zip Code")
-            .IsNotNullOrEmpty(createInstitutionRequest.Phone, "Phone")
-            .Matches(createInstitutionRequest.Password,
-                @"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$", "Password",
-                "Password must be valid.");
+        RuleFor(x => x.Name).NotNull().NotEmpty();
+        RuleFor(x => x.ResponsibleName).NotNull().NotEmpty();
+        RuleFor(x => x.Email).EmailAddress();
+        RuleFor(x => x.Address).NotNull().NotEmpty();
+        RuleFor(x => x.ZipCode).NotNull().NotEmpty();
+        RuleFor(x => x.Phone).NotNull().NotEmpty();
+        RuleFor(x => x.Password).Matches(@"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$")
+            .WithMessage("Password must be valid.");
     }
 }
