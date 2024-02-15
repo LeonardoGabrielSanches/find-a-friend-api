@@ -1,3 +1,5 @@
+using FindAFriend.Domain.Exceptions;
+
 namespace FindAFriend.UseCases.CommonRequest;
 
-public class InvalidRequestException(string message) : Exception(message);
+public class InvalidRequestException(string message) : DomainException(message);

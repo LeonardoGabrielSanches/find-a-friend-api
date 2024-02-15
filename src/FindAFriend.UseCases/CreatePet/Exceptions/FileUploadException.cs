@@ -1,3 +1,5 @@
+using FindAFriend.Domain.Exceptions;
+
 namespace FindAFriend.UseCases.CreatePet.Exceptions;
 
-public class FileUploadException() : Exception("Occured an error uploading files");
+public class FileUploadException() : DomainException("Occured an error uploading files");

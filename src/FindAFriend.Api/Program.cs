@@ -1,5 +1,8 @@
+using System.Net;
+
 using FindAFriend.Api.Endpoints;
 using FindAFriend.Api.Extensions;
+using FindAFriend.Domain.Exceptions;
 using FindAFriend.Infrastructure;
 
 using Microsoft.EntityFrameworkCore;
@@ -31,5 +34,24 @@ app.UseHttpsRedirection();
 app.RegisterEndpoints();
 
 app.AddMigrations();
+
+app.Use(async (httpContext, next) =>
+{
+    try
+    {
+        await next();
+    }
+    catch (DomainException applicationException)
+    {
+        httpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+        await httpContext.Response.WriteAsJsonAsync(new { error = applicationException.Message });
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine(e.Message);
+
+        httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+    }
+});
 
 app.Run();
