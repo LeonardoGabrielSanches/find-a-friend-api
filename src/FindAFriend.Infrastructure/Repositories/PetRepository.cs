@@ -5,6 +5,9 @@ namespace FindAFriend.Infrastructure.Repositories;
 
 public class PetRepository(FindAFriendContext context) : IPetRepository
 {
-    public void Add(Pet pet)
-        => context.Pets.Add(pet);
+    public async Task Add(Pet pet)
+    {
+        context.Pets.Add(pet);
+        await context.SaveChangesAsync();
+    }
 }

@@ -10,7 +10,7 @@ public static class PetEndpoints
     {
         var petsGroupBuilder = routeGroupBuilder.MapGroup("pets");
 
-        petsGroupBuilder.MapPost("/", CreatePet)
+        petsGroupBuilder.MapPost("/", () => { Results.Ok("Need implementations"); })
             .WithName("CreatePet")
             .Produces((int)HttpStatusCode.Created)
             .WithOpenApi();

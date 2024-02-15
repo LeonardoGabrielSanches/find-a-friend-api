@@ -7,8 +7,11 @@ namespace FindAFriend.Infrastructure.Repositories;
 
 public class InstitutionRepository(FindAFriendContext context) : IInstitutionRepository
 {
-    public void Add(Institution institution)
-        => context.Institutions.Add(institution);
+    public async Task Add(Institution institution)
+    {
+        context.Institutions.Add(institution);
+        await context.SaveChangesAsync();
+    }
 
     public async Task<Institution?> GetByEmail(string email)
         => await context.Institutions.FirstOrDefaultAsync(x => x.Email == email);
