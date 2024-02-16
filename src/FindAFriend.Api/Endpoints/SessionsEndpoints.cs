@@ -1,5 +1,6 @@
 using System.Net;
 
+using FindAFriend.Infra.Common.Auth;
 using FindAFriend.UseCases.AuthenticateInstitution;
 
 namespace FindAFriend.Api.Endpoints;
@@ -20,11 +21,24 @@ public static class SessionsEndpoints
     static async Task<IResult> CreateSession(
         AuthenticateInstitutionUseCase authenticateInstitutionUseCase,
         AuthenticateInstitutionRequest request,
-        HttpContext context)
+        HttpContext context,
+        ITokenGenerator tokenGenerator)
     {
         var response = await authenticateInstitutionUseCase.Execute(request);
+        
+        var token = tokenGenerator.Generate(
+            new TokenGeneratorRequest(
+                response.Id.ToString(),
+                response.Email,
+                IsRefreshToken: false));
 
-        context.Response.Cookies.Append("refreshToken", response.RefreshToken,
+        var refreshToken = tokenGenerator.Generate(
+            new TokenGeneratorRequest(
+                response.Id.ToString(),
+                response.Email,
+                IsRefreshToken: true));
+
+        context.Response.Cookies.Append("refreshToken", refreshToken,
             new CookieOptions { Path = "/", Secure = true, SameSite = SameSiteMode.Strict, HttpOnly = true });
 
         return Results.Ok(new
@@ -34,7 +48,7 @@ public static class SessionsEndpoints
             response.ZipCode,
             response.Address,
             response.Phone,
-            response.Token,
+            token,
         });
     }
 }

@@ -6,8 +6,7 @@ namespace FindAFriend.UseCases.AuthenticateInstitution;
 
 public class AuthenticateInstitutionUseCase(
     IInstitutionRepository institutionRepository,
-    IPasswordHasher passwordHasher,
-    ITokenGenerator tokenGenerator)
+    IPasswordHasher passwordHasher)
 {
     public async Task<AuthenticateInstitutionResponse> Execute(AuthenticateInstitutionRequest request)
     {
@@ -21,18 +20,6 @@ public class AuthenticateInstitutionUseCase(
         if (!passwordMatches)
             throw new AuthenticateFailedException();
 
-        var token = tokenGenerator.Generate(
-            new TokenGeneratorRequest(
-                institution.Id.ToString(),
-                institution.Email,
-                IsRefreshToken: false));
-
-        var refreshToken = tokenGenerator.Generate(
-            new TokenGeneratorRequest(
-                institution.Id.ToString(),
-                institution.Email,
-                IsRefreshToken: true));
-
-        return AuthenticateInstitutionResponse.MapResponse(institution, token, refreshToken);
+        return AuthenticateInstitutionResponse.MapResponse(institution);
     }
 }
