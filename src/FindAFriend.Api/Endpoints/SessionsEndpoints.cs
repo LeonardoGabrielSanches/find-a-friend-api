@@ -19,14 +19,16 @@ public static class SessionsEndpoints
 
     static async Task<IResult> CreateSession(
         AuthenticateInstitutionUseCase authenticateInstitutionUseCase,
-        AuthenticateInstitutionRequest request)
+        AuthenticateInstitutionRequest request,
+        HttpContext context)
     {
         var response = await authenticateInstitutionUseCase.Execute(request);
 
+        context.Response.Cookies.Append("refreshToken", response.RefreshToken,
+            new CookieOptions { Path = "/", Secure = true, SameSite = SameSiteMode.Strict, HttpOnly = true });
+
         return Results.Ok(new
         {
-            response.Id,
-            response.Email,
             response.Name,
             response.ResponsibleName,
             response.ZipCode,

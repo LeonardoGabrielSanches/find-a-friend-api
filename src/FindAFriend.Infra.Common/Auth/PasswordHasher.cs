@@ -9,7 +9,7 @@ public class PasswordHasher(IConfiguration configuration) : IPasswordHasher
 {
     public string HashPassword(string password)
     {
-        var salt = Encoding.ASCII.GetBytes(configuration.GetSection("Auth:Token").Value!);
+        var salt = Encoding.ASCII.GetBytes(configuration.GetSection("Auth:Secret").Value!);
 
         var hash = Convert.ToBase64String(KeyDerivation.Pbkdf2(
             password: password,

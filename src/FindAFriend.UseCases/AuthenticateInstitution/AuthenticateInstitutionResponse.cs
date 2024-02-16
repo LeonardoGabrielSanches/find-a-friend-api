@@ -3,8 +3,6 @@ using FindAFriend.Domain;
 namespace FindAFriend.UseCases.AuthenticateInstitution;
 
 public record AuthenticateInstitutionResponse(
-    Guid Id,
-    string Email,
     string Name,
     string ResponsibleName,
     string ZipCode,
@@ -19,8 +17,6 @@ public record AuthenticateInstitutionResponse(
         string refreshToken)
     {
         return new AuthenticateInstitutionResponse(
-            institution.Id,
-            institution.Email,
             institution.Name,
             institution.ResponsibleName,
             institution.ZipCode,
