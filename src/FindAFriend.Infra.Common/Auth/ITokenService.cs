@@ -1,6 +1,7 @@
 namespace FindAFriend.Infra.Common.Auth;
 
-public interface ITokenGenerator
+public interface ITokenService
 {
     string Generate(TokenGeneratorRequest request);
+    Guid ValidateToken(string token);
 }

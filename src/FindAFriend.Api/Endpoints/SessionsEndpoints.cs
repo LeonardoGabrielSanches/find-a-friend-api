@@ -16,23 +16,27 @@ public static class SessionsEndpoints
             .Produces((int)HttpStatusCode.OK)
             .Produces((int)HttpStatusCode.BadRequest)
             .WithOpenApi();
+
+        sessionsGroupBuilder.MapPost("/refresh-token", RefreshToken)
+            .WithName("RefreshToken")
+            .WithOpenApi();
     }
 
     static async Task<IResult> CreateSession(
         AuthenticateInstitutionUseCase authenticateInstitutionUseCase,
         AuthenticateInstitutionRequest request,
         HttpContext context,
-        ITokenGenerator tokenGenerator)
+        ITokenService tokenService)
     {
         var response = await authenticateInstitutionUseCase.Execute(request);
-        
-        var token = tokenGenerator.Generate(
+
+        var token = tokenService.Generate(
             new TokenGeneratorRequest(
                 response.Id.ToString(),
                 response.Email,
                 IsRefreshToken: false));
 
-        var refreshToken = tokenGenerator.Generate(
+        var refreshToken = tokenService.Generate(
             new TokenGeneratorRequest(
                 response.Id.ToString(),
                 response.Email,
@@ -50,5 +54,12 @@ public static class SessionsEndpoints
             response.Phone,
             token,
         });
+    }
+
+    static async Task<IResult> RefreshToken(HttpContext context)
+    {
+        Console.WriteLine(context.Request.Headers.Cookie);
+
+        return Results.Ok();
     }
 }

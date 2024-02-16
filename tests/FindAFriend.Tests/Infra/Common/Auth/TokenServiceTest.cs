@@ -6,12 +6,12 @@ using Moq;
 
 namespace FindAFriend.Test.Infra.Common.Auth;
 
-public class TokenGeneratorTest
+public class TokenServiceTest
 {
-    private readonly TokenGenerator _sut;
+    private readonly TokenService _sut;
     private readonly Mock<IConfiguration> _configuration = new();
 
-    public TokenGeneratorTest()
+    public TokenServiceTest()
     {
         var configurationSection = new Mock<IConfigurationSection>();
         configurationSection.Setup(x => x.Value)
@@ -21,7 +21,7 @@ public class TokenGeneratorTest
         _configuration.Setup(x => x.GetSection("Auth:Token"))
             .Returns(configurationSection.Object);
 
-        _sut = new TokenGenerator(_configuration.Object);
+        _sut = new TokenService(_configuration.Object);
     }
 
     [Theory(DisplayName = "Should generate token")]

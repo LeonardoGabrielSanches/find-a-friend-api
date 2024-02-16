@@ -35,7 +35,7 @@ public static class ApplicationServicesExtensions
 
     static WebApplicationBuilder AddCommonServices(this WebApplicationBuilder builder)
     {
-        builder.Services.AddScoped<ITokenGenerator, TokenGenerator>();
+        builder.Services.AddScoped<ITokenService, TokenService>();
         builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 
         return builder;
