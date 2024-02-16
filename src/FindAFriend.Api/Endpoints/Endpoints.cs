@@ -12,5 +12,6 @@ public static class Endpoints
 
         apiGroupBuilder.RegisterPetEndpoints();
         apiGroupBuilder.RegisterInstitutionEndpoints();
+        apiGroupBuilder.RegisterSessionsEndpoints();
     }
 }

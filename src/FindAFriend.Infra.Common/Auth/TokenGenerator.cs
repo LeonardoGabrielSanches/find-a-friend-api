@@ -18,7 +18,7 @@ public class TokenGenerator(IConfiguration configuration) : ITokenGenerator
         };
 
         var key = new SymmetricSecurityKey(
-            System.Text.Encoding.UTF8.GetBytes(configuration.GetSection("Auth:Secret").Value!));
+            System.Text.Encoding.UTF8.GetBytes(configuration.GetSection("Auth:Token").Value!));
 
         var signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 

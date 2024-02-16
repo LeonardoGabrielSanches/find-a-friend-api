@@ -1,3 +1,5 @@
+using FindAFriend.Domain.Exceptions;
+
 namespace FindAFriend.UseCases.AuthenticateInstitution.Exceptions;
 
-public class AuthenticateFailedException() : ApplicationException("Email or password incorrect.");
+public class AuthenticateFailedException() : DomainException("Email/password incorrect.");

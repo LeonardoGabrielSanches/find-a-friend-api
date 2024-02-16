@@ -1,12 +1,12 @@
 using FindAFriend.Domain.Repositories;
 using FindAFriend.Infra.Common.Auth;
 using FindAFriend.UseCases.AuthenticateInstitution.Exceptions;
-using FindAFriend.UseCases.Common.Auth;
 
 namespace FindAFriend.UseCases.AuthenticateInstitution;
 
 public class AuthenticateInstitutionUseCase(
     IInstitutionRepository institutionRepository,
+    IPasswordHasher passwordHasher,
     ITokenGenerator tokenGenerator)
 {
     public async Task<AuthenticateInstitutionResponse> Execute(AuthenticateInstitutionRequest request)
@@ -16,9 +16,7 @@ public class AuthenticateInstitutionUseCase(
         if (institution is null)
             throw new AuthenticateFailedException();
 
-        var passwordHash = PasswordHasher.HashPassword(request.Password);
-
-        var passwordMatches = string.Equals(passwordHash, institution.Password, StringComparison.OrdinalIgnoreCase);
+        var passwordMatches = passwordHasher.VerifyPassword(request.Password, institution.Password);
 
         if (!passwordMatches)
             throw new AuthenticateFailedException();

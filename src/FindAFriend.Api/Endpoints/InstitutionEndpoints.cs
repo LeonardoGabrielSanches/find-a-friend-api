@@ -8,13 +8,14 @@ public static class InstitutionEndpoints
 {
     public static void RegisterInstitutionEndpoints(this RouteGroupBuilder routeGroupBuilder)
     {
-        var petsGroupBuilder = routeGroupBuilder.MapGroup("institutions");
+        var institutionsGroupBuilder = routeGroupBuilder.MapGroup("institutions");
 
-        petsGroupBuilder.MapPost("/", CreateInstitution)
+        institutionsGroupBuilder.MapPost("/", CreateInstitution)
             .WithName("CreateInstitution")
             .Produces((int)HttpStatusCode.Created)
             .Produces((int)HttpStatusCode.BadRequest)
-            .WithOpenApi();
+            .WithOpenApi()
+            .AllowAnonymous();
     }
 
     static async Task<IResult> CreateInstitution(

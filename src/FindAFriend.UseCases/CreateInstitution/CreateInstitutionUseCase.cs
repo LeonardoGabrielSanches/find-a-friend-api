@@ -1,12 +1,13 @@
 using FindAFriend.Domain;
 using FindAFriend.Domain.Repositories;
-using FindAFriend.UseCases.Common.Auth;
+using FindAFriend.Infra.Common.Auth;
 using FindAFriend.UseCases.CreateInstitution.Exceptions;
 
 namespace FindAFriend.UseCases.CreateInstitution;
 
 public class CreateInstitutionUseCase(
-    IInstitutionRepository institutionRepository)
+    IInstitutionRepository institutionRepository,
+    IPasswordHasher passwordHasher)
 {
     public async Task Execute(CreateInstitutionRequest request)
     {
@@ -14,8 +15,8 @@ public class CreateInstitutionUseCase(
 
         if (institutionWithSameEmail is not null)
             throw new InstitutionAlreadyRegisteredException();
-        
-        var passwordHash = PasswordHasher.HashPassword(request.Password);
+
+        var passwordHash = passwordHasher.HashPassword(request.Password);
 
         var institution = new Institution(
             name: request.Name,

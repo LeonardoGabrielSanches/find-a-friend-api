@@ -24,7 +24,7 @@ builder.Services.AddDbContext<FindAFriendContext>(options =>
 
 builder.AddApplicationServices();
 
-var key = Encoding.ASCII.GetBytes(builder.Configuration["Auth:Secret"]!);
+var key = Encoding.ASCII.GetBytes(builder.Configuration["Auth:Token"]!);
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
