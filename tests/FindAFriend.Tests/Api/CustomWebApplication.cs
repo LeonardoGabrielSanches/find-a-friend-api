@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
+using Npgsql;
+
+using Respawn;
+
 using Testcontainers.PostgreSql;
 
 namespace FindAFriend.Test.Api;
@@ -18,6 +22,9 @@ public class CustomWebApplication : WebApplicationFactory<Program>, IAsyncLifeti
         .WithPassword("postgres")
         .WithUsername("postgres")
         .Build();
+
+    private DbConnection _dbConnection = default!;
+    private Respawner _respawner = default!;
 
     public HttpClient HttpClient { get; private set; }
 
@@ -48,11 +55,23 @@ public class CustomWebApplication : WebApplicationFactory<Program>, IAsyncLifeti
     public async Task InitializeAsync()
     {
         await _dbContainer.StartAsync();
+        _dbConnection = new NpgsqlConnection(_dbContainer.GetConnectionString());
         HttpClient = CreateClient();
+        await InitializeRespawner();
+    }
+
+    private async Task InitializeRespawner()
+    {
+        await _dbConnection.OpenAsync();
+        _respawner = await Respawner.CreateAsync(_dbConnection,
+            new RespawnerOptions { DbAdapter = DbAdapter.Postgres, SchemasToInclude = ["public"] });
     }
 
     public async Task DisposeAsync()
     {
         await _dbContainer.StopAsync();
     }
+
+    public async Task ResetDatabase()
+        => await _respawner.ResetAsync(_dbConnection);
 }

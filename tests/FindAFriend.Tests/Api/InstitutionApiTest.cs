@@ -10,6 +10,7 @@ namespace FindAFriend.Test.Api;
 public class InstitutionApiTest(CustomWebApplication customWebApplication)
 {
     private readonly HttpClient _httpClient = customWebApplication.HttpClient;
+    private readonly Func<Task> _resetDatabase = customWebApplication.ResetDatabase;
 
     [Fact(DisplayName = "Should create a new institution")]
     [Category("Integration")]
@@ -27,5 +28,7 @@ public class InstitutionApiTest(CustomWebApplication customWebApplication)
         response.EnsureSuccessStatusCode();
 
         Assert.Equal(HttpStatusCode.Created, response.StatusCode);
+
+        await _resetDatabase();
     }
 }
