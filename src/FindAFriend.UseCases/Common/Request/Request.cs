@@ -1,6 +1,6 @@
 using ValidationResult = FluentValidation.Results.ValidationResult;
 
-namespace FindAFriend.UseCases.CommonRequest;
+namespace FindAFriend.UseCases.Common.Request;
 
 public abstract class Request
 {

@@ -1,13 +1,13 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace FindAFriend.UseCases.CreateInstitution;
+namespace FindAFriend.UseCases.Common.Auth;
 
 public static class PasswordHasher
 {
     const int KeySize = 64;
     const int Iterations = 350000;
-    static readonly HashAlgorithmName _hashAlgorithm = HashAlgorithmName.SHA512;
+    static readonly HashAlgorithmName HashAlgorithm = HashAlgorithmName.SHA512;
 
     public static string HashPassword(string password)
     {
@@ -17,7 +17,7 @@ public static class PasswordHasher
             Encoding.UTF8.GetBytes(password),
             salt,
             Iterations,
-            _hashAlgorithm,
+            HashAlgorithm,
             KeySize);
         
         return Convert.ToHexString(hash);

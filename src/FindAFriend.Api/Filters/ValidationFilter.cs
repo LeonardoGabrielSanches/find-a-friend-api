@@ -1,4 +1,4 @@
-using FindAFriend.UseCases.CommonRequest;
+using FindAFriend.UseCases.Common.Request;
 
 namespace FindAFriend.Api.Filters;
 
@@ -7,8 +7,8 @@ public class ValidationFilter : IEndpointFilter
     public async ValueTask<object?> InvokeAsync(EndpointFilterInvocationContext context, EndpointFilterDelegate next)
     {
         var requestToValidate = context.Arguments.FirstOrDefault(x => x?.GetType().BaseType == typeof(Request));
-        
-        if(requestToValidate is null)
+
+        if (requestToValidate is null)
             return await next(context);
 
         var request = context.GetArgument<Request>(context.Arguments.IndexOf(requestToValidate));

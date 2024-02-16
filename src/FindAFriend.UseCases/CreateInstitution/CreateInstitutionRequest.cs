@@ -1,4 +1,4 @@
-using FindAFriend.UseCases.CommonRequest;
+using FindAFriend.UseCases.Common.Request;
 
 namespace FindAFriend.UseCases.CreateInstitution;
 

@@ -1,5 +1,5 @@
 using FindAFriend.Domain.Enums;
-using FindAFriend.UseCases.CommonRequest;
+using FindAFriend.UseCases.Common.Request;
 
 namespace FindAFriend.UseCases.CreatePet;
 

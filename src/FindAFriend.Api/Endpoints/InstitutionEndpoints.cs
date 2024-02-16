@@ -2,8 +2,6 @@ using System.Net;
 
 using FindAFriend.UseCases.CreateInstitution;
 
-using Microsoft.AspNetCore.Http.HttpResults;
-
 namespace FindAFriend.Api.Endpoints;
 
 public static class InstitutionEndpoints
@@ -19,12 +17,12 @@ public static class InstitutionEndpoints
             .WithOpenApi();
     }
 
-    static async Task<Created> CreateInstitution(
+    static async Task<IResult> CreateInstitution(
         CreateInstitutionUseCase createInstitutionUseCase,
         CreateInstitutionRequest request)
     {
         await createInstitutionUseCase.Execute(request);
 
-        return TypedResults.Created();
+        return Results.Created();
     }
 }

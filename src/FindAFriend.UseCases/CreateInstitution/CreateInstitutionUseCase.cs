@@ -1,5 +1,6 @@
 using FindAFriend.Domain;
 using FindAFriend.Domain.Repositories;
+using FindAFriend.UseCases.Common.Auth;
 using FindAFriend.UseCases.CreateInstitution.Exceptions;
 
 namespace FindAFriend.UseCases.CreateInstitution;

@@ -1,5 +1,7 @@
 using FindAFriend.Domain.Repositories;
+using FindAFriend.Infra.Common.Auth;
 using FindAFriend.Infra.Data.Repositories;
+using FindAFriend.UseCases.AuthenticateInstitution;
 using FindAFriend.UseCases.CreateInstitution;
 
 namespace FindAFriend.Api.Extensions;
@@ -10,7 +12,8 @@ public static class ApplicationServicesExtensions
     {
         builder
             .AddRepositories()
-            .AddUseCases();
+            .AddUseCases()
+            .AddCommonServices();
     }
 
     static WebApplicationBuilder AddRepositories(this WebApplicationBuilder builder)
@@ -25,6 +28,14 @@ public static class ApplicationServicesExtensions
     {
         // builder.Services.AddScoped<CreatePetUseCase>();
         builder.Services.AddScoped<CreateInstitutionUseCase>();
+        builder.Services.AddScoped<AuthenticateInstitutionUseCase>();
+
+        return builder;
+    }
+
+    static WebApplicationBuilder AddCommonServices(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddScoped<ITokenGenerator, TokenGenerator>();
 
         return builder;
     }
