@@ -39,7 +39,11 @@ public class CustomWebApplication : WebApplicationFactory<Program>, IAsyncLifeti
 
             services.Remove(dbConnectionDescriptor);
 
-            services.AddDbContext<FindAFriendContext>(options => options.UseNpgsql(_dbContainer.GetConnectionString()));
+            services.AddDbContext<FindAFriendContext>(options =>
+            {
+                options.UseSnakeCaseNamingConvention();
+                options.UseNpgsql(_dbContainer.GetConnectionString());
+            });
         });
     }
 
