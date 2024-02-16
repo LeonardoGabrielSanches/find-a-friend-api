@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Net;
 using System.Net.Http.Json;
 
 using FindAFriend.UseCases.CreateInstitution;
@@ -24,5 +25,7 @@ public class InstitutionApiTest(CustomWebApplication customWebApplication)
             password: "oneLetter1Number@"));
 
         response.EnsureSuccessStatusCode();
+
+        Assert.Equal(HttpStatusCode.Created, response.StatusCode);
     }
 }

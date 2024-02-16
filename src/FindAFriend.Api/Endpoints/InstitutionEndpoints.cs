@@ -2,6 +2,8 @@ using System.Net;
 
 using FindAFriend.UseCases.CreateInstitution;
 
+using Microsoft.AspNetCore.Http.HttpResults;
+
 namespace FindAFriend.Api.Endpoints;
 
 public static class InstitutionEndpoints
@@ -13,15 +15,16 @@ public static class InstitutionEndpoints
         petsGroupBuilder.MapPost("/", CreateInstitution)
             .WithName("CreateInstitution")
             .Produces((int)HttpStatusCode.Created)
+            .Produces((int)HttpStatusCode.BadRequest)
             .WithOpenApi();
     }
 
-    static async Task CreateInstitution(
+    static async Task<Created> CreateInstitution(
         CreateInstitutionUseCase createInstitutionUseCase,
         CreateInstitutionRequest request)
     {
         await createInstitutionUseCase.Execute(request);
 
-        Results.Created();
+        return TypedResults.Created();
     }
 }
