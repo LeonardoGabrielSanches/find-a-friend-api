@@ -57,6 +57,8 @@ public static class ApplicationServicesExtensions
 
     static WebApplicationBuilder AddHttpServices(this WebApplicationBuilder builder)
     {
+        builder.Services.AddHttpContextAccessor();
+
         builder.Services.AddRefitClient<IUploadFileApi>()
             .ConfigureHttpClient(options =>
                 options.BaseAddress = new Uri(builder.Configuration["Integrations:ImgBB:Url"]!));

@@ -6,5 +6,5 @@ public interface IUploadFileApi
 {
     [Multipart]
     [Post("/upload?key={apiKey}")]
-    Task<UploadFileApiResponse> Upload(string apiKey, [AliasAs("image")] StreamPart stream);
+    Task<UploadFileApiResponse> Upload(string apiKey, [AliasAs("image")] byte[] image);
 }

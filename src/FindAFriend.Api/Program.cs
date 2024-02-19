@@ -70,8 +70,8 @@ app.RegisterEndpoints();
 
 app.AddMigrations();
 
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 
 app.Use(async (httpContext, next) =>
 {

@@ -69,7 +69,7 @@ public class CreatePetUseCaseTest
             environmentSize: EPetEnvironmentSize.Small,
             institutionId: Guid.NewGuid());
 
-        validRequest.AddFile(new CreatePetRequestFiles("file.png", new byte[1]));
+        validRequest.AddFile(new CreatePetRequestFiles("file.png", new byte[1],"image/png"));
 
         await Assert.ThrowsAsync<FileUploadException>(() => _sut.Execute(validRequest));
     }
@@ -101,7 +101,7 @@ public class CreatePetUseCaseTest
             environmentSize: EPetEnvironmentSize.Small,
             institutionId: Guid.NewGuid());
 
-        validRequest.AddFile(new CreatePetRequestFiles("file.png", new byte[1]));
+        validRequest.AddFile(new CreatePetRequestFiles("file.png", new byte[1],"image/png"));
 
         await _sut.Execute(validRequest);
 
