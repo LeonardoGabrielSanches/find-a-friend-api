@@ -58,7 +58,7 @@ public static class SessionsEndpoints
         });
     }
 
-    static async Task<IResult> RefreshToken(
+    static IResult RefreshToken(
         HttpContext context,
         ITokenService tokenService)
     {
