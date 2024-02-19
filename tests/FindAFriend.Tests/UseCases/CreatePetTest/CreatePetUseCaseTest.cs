@@ -13,7 +13,7 @@ namespace FindAFriend.Test.UseCases.CreatePetTest;
 public class CreatePetUseCaseTest
 {
     private readonly Mock<IInstitutionRepository> _institutionRepository = new();
-    private readonly Mock<IUploadFile> _uploadFile = new();
+    private readonly Mock<IUploadFileService> _uploadFile = new();
     private readonly Mock<IPetRepository> _petRepository = new();
     private readonly CreatePetUseCase _sut;
 

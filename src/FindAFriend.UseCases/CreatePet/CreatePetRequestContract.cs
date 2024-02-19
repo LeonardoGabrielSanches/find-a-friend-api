@@ -15,5 +15,7 @@ public class CreatePetRequestContract : AbstractValidator<CreatePetRequest>
         RuleFor(x => x.DependencyLevel).NotNull().NotEmpty();
         RuleFor(x => x.EnvironmentSize).NotNull().NotEmpty();
         RuleFor(x => x.InstitutionId).NotNull().NotEmpty();
+        RuleFor(x => x.Files.Count).InclusiveBetween(1, 3)
+            .WithMessage("Must contain at least one file and at most three files.");
     }
 }

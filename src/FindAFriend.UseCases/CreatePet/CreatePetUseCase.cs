@@ -8,7 +8,7 @@ namespace FindAFriend.UseCases.CreatePet;
 
 public class CreatePetUseCase(
     IInstitutionRepository institutionRepository,
-    IUploadFile uploadFile,
+    IUploadFileService uploadFileService,
     IPetRepository petRepository)
 {
     public async Task Execute(CreatePetRequest request)
@@ -31,7 +31,7 @@ public class CreatePetUseCase(
 
         foreach (var file in request.Files)
         {
-            var uploadFileResponse = await uploadFile.Upload(new UploadFileRequest(file.Bytes));
+            var uploadFileResponse = await uploadFileService.Upload(new UploadFileRequest(file.Bytes));
 
             if (!uploadFileResponse.Success)
                 throw new FileUploadException();

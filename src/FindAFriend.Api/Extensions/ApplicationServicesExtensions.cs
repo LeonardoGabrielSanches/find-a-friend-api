@@ -1,8 +1,13 @@
 using FindAFriend.Domain.Repositories;
 using FindAFriend.Infra.Common.Auth;
+using FindAFriend.Infra.Common.UploadFile;
+using FindAFriend.Infra.CrossCutting.UploadFile;
 using FindAFriend.Infra.Data.Repositories;
 using FindAFriend.UseCases.AuthenticateInstitution;
 using FindAFriend.UseCases.CreateInstitution;
+using FindAFriend.UseCases.CreatePet;
+
+using Refit;
 
 namespace FindAFriend.Api.Extensions;
 
@@ -13,7 +18,9 @@ public static class ApplicationServicesExtensions
         builder
             .AddRepositories()
             .AddUseCases()
-            .AddCommonServices();
+            .AddCommonServices()
+            .AddCrossCuttingServices()
+            .AddHttpServices();
     }
 
     static WebApplicationBuilder AddRepositories(this WebApplicationBuilder builder)
@@ -26,7 +33,7 @@ public static class ApplicationServicesExtensions
 
     static WebApplicationBuilder AddUseCases(this WebApplicationBuilder builder)
     {
-        // builder.Services.AddScoped<CreatePetUseCase>();
+        builder.Services.AddScoped<CreatePetUseCase>();
         builder.Services.AddScoped<CreateInstitutionUseCase>();
         builder.Services.AddScoped<AuthenticateInstitutionUseCase>();
 
@@ -37,6 +44,22 @@ public static class ApplicationServicesExtensions
     {
         builder.Services.AddScoped<ITokenService, TokenService>();
         builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+
+        return builder;
+    }
+
+    static WebApplicationBuilder AddCrossCuttingServices(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddScoped<IUploadFileService, UploadFileService>();
+
+        return builder;
+    }
+
+    static WebApplicationBuilder AddHttpServices(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddRefitClient<IUploadFileApi>()
+            .ConfigureHttpClient(options =>
+                options.BaseAddress = new Uri(builder.Configuration["Integrations:ImgBB:Url"]!));
 
         return builder;
     }

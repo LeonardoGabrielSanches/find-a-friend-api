@@ -1,6 +1,6 @@
 namespace FindAFriend.Infra.Common.UploadFile;
 
-public interface IUploadFile
+public interface IUploadFileService
 {
     Task<UploadFileResponse> Upload(UploadFileRequest request);
 }
