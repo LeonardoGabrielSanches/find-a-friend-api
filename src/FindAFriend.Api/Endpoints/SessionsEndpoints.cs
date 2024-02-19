@@ -7,6 +7,8 @@ namespace FindAFriend.Api.Endpoints;
 
 public static class SessionsEndpoints
 {
+    private const string RefreshTokenCookieKey = "refresh_token";
+
     public static void RegisterSessionsEndpoints(this RouteGroupBuilder routeGroupBuilder)
     {
         var sessionsGroupBuilder = routeGroupBuilder.MapGroup("sessions");
@@ -42,7 +44,7 @@ public static class SessionsEndpoints
                 response.Email,
                 IsRefreshToken: true));
 
-        context.Response.Cookies.Append("refreshToken", refreshToken,
+        context.Response.Cookies.Append(RefreshTokenCookieKey, refreshToken,
             new CookieOptions { Path = "/", Secure = true, SameSite = SameSiteMode.Strict, HttpOnly = true });
 
         return Results.Ok(new
@@ -56,10 +58,35 @@ public static class SessionsEndpoints
         });
     }
 
-    static async Task<IResult> RefreshToken(HttpContext context)
+    static async Task<IResult> RefreshToken(
+        HttpContext context,
+        ITokenService tokenService)
     {
-        Console.WriteLine(context.Request.Headers.Cookie);
+        var refreshToken = context.Request.Cookies.FirstOrDefault(x => x.Key == RefreshTokenCookieKey);
 
-        return Results.Ok();
+        if (refreshToken.Key is null)
+            return Results.Unauthorized();
+
+        (TokenUserInformation tokenInfo, bool isValid) = tokenService.ValidateToken(refreshToken.Value);
+
+        if (!isValid)
+            return Results.Unauthorized();
+
+        var token = tokenService.Generate(
+            new TokenGeneratorRequest(
+                tokenInfo.Id.ToString(),
+                tokenInfo.Email,
+                IsRefreshToken: false));
+
+        var newRefreshToken = tokenService.Generate(
+            new TokenGeneratorRequest(
+                tokenInfo.Id.ToString(),
+                tokenInfo.Email,
+                IsRefreshToken: true));
+
+        context.Response.Cookies.Append(RefreshTokenCookieKey, newRefreshToken,
+            new CookieOptions { Path = "/", Secure = true, SameSite = SameSiteMode.Strict, HttpOnly = true });
+
+        return Results.Ok(new { token });
     }
 }

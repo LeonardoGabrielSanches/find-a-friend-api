@@ -9,6 +9,8 @@ namespace FindAFriend.Infra.Common.Auth;
 
 public record TokenGeneratorRequest(string Id, string Email, bool IsRefreshToken);
 
+public record TokenUserInformation(Guid Id, string Email);
+
 public class TokenService(IConfiguration configuration) : ITokenService
 {
     public string Generate(TokenGeneratorRequest request)
@@ -23,7 +25,7 @@ public class TokenService(IConfiguration configuration) : ITokenService
 
         var signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
-        var expiresIn = request.IsRefreshToken ? DateTime.UtcNow.AddMilliseconds(10) : DateTime.UtcNow.AddHours(1);
+        var expiresIn = request.IsRefreshToken ? DateTime.UtcNow.AddDays(7) : DateTime.UtcNow.AddHours(1);
 
         var token = new JwtSecurityToken(
             claims: claims,
@@ -34,29 +36,31 @@ public class TokenService(IConfiguration configuration) : ITokenService
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
-    public Guid ValidateToken(string token)
+    public (TokenUserInformation, bool) ValidateToken(string token)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.ASCII.GetBytes(configuration.GetSection("Auth:Token").Value!);
         try
         {
-            tokenHandler.ValidateToken(token, new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuer = false,
-                ValidateAudience = false,
-                ClockSkew = TimeSpan.Zero
-            }, out SecurityToken validatedToken);
+            tokenHandler.ValidateToken(token,
+                new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ClockSkew = TimeSpan.Zero
+                }, out SecurityToken validatedToken);
 
             var jwtToken = (JwtSecurityToken)validatedToken;
             var userId = Guid.Parse(jwtToken.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
+            var email = jwtToken.Claims.First(x => x.Type == ClaimTypes.Email).Value;
 
-            return userId;
+            return (new TokenUserInformation(userId, email), true);
         }
         catch
         {
-            return Guid.Empty;
+            return (new TokenUserInformation(Guid.Empty, String.Empty), false);
         }
     }
 }
