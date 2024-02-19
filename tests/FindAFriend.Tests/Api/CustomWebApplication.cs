@@ -56,7 +56,10 @@ public class CustomWebApplication : WebApplicationFactory<Program>, IAsyncLifeti
     {
         await _dbContainer.StartAsync();
         _dbConnection = new NpgsqlConnection(_dbContainer.GetConnectionString());
-        HttpClient = CreateClient();
+        HttpClient = CreateClient(new WebApplicationFactoryClientOptions()
+        {
+            BaseAddress = new Uri("https://localhost/")
+        });
         await InitializeRespawner();
     }
 
