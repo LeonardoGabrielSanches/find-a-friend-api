@@ -19,7 +19,7 @@ public static class SessionsEndpoints
             .Produces((int)HttpStatusCode.BadRequest)
             .WithOpenApi();
 
-        sessionsGroupBuilder.MapPost("/refresh-token", RefreshToken)
+        sessionsGroupBuilder.MapPatch("/refresh-token", RefreshToken)
             .WithName("RefreshToken")
             .WithOpenApi();
     }
@@ -54,7 +54,7 @@ public static class SessionsEndpoints
             response.ZipCode,
             response.Address,
             response.Phone,
-            token,
+            token
         });
     }
 
