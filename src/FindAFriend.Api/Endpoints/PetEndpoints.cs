@@ -37,7 +37,7 @@ public record CreatePetHttpRequest(
             using var ms = new MemoryStream();
             file.CopyTo(ms);
             var fileBytes = ms.ToArray();
-            createPetRequest.AddFile(new CreatePetRequestFiles(file.FileName, fileBytes, file.ContentType));
+            createPetRequest.AddFile(new CreatePetRequestFiles(file.FileName, fileBytes));
         });
 
         return createPetRequest;

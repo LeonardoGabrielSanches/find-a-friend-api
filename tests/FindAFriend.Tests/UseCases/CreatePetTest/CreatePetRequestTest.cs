@@ -19,6 +19,8 @@ public class CreatePetRequestTest
             environmentSize: EPetEnvironmentSize.Small,
             institutionId: Guid.NewGuid());
 
+        request.Files.Add(new CreatePetRequestFiles("name", new byte[1]));
+
         await request.Validate();
 
         Assert.True(request.IsValid);

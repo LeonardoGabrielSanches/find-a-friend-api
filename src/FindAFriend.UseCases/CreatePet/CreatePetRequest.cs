@@ -34,4 +34,4 @@ public class CreatePetRequest(
         => Files.Add(file);
 }
 
-public record CreatePetRequestFiles(string Name, byte[] Bytes, string ContentType);
+public record CreatePetRequestFiles(string Name, byte[] Bytes);

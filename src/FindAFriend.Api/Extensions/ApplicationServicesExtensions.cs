@@ -2,6 +2,7 @@ using FindAFriend.Domain.Repositories;
 using FindAFriend.Infra.Common.Auth;
 using FindAFriend.Infra.Common.UploadFile;
 using FindAFriend.Infra.CrossCutting.UploadFile;
+using FindAFriend.Infra.CrossCutting.UploadFile.Firebase;
 using FindAFriend.Infra.Data.Repositories;
 using FindAFriend.UseCases.AuthenticateInstitution;
 using FindAFriend.UseCases.CreateInstitution;
@@ -19,8 +20,7 @@ public static class ApplicationServicesExtensions
             .AddRepositories()
             .AddUseCases()
             .AddCommonServices()
-            .AddCrossCuttingServices()
-            .AddHttpServices();
+            .AddCrossCuttingServices();
     }
 
     static WebApplicationBuilder AddRepositories(this WebApplicationBuilder builder)
@@ -50,18 +50,7 @@ public static class ApplicationServicesExtensions
 
     static WebApplicationBuilder AddCrossCuttingServices(this WebApplicationBuilder builder)
     {
-        builder.Services.AddScoped<IUploadFileService, UploadFileService>();
-
-        return builder;
-    }
-
-    static WebApplicationBuilder AddHttpServices(this WebApplicationBuilder builder)
-    {
-        builder.Services.AddHttpContextAccessor();
-
-        builder.Services.AddRefitClient<IUploadFileApi>()
-            .ConfigureHttpClient(options =>
-                options.BaseAddress = new Uri(builder.Configuration["Integrations:ImgBB:Url"]!));
+        builder.Services.AddScoped<IUploadFileService, UploadFileFirebaseService>();
 
         return builder;
     }

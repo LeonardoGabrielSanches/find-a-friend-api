@@ -26,7 +26,7 @@ public class CustomWebApplication : WebApplicationFactory<Program>, IAsyncLifeti
     private DbConnection _dbConnection = default!;
     private Respawner _respawner = default!;
 
-    public HttpClient HttpClient { get; private set; }
+    public HttpClient HttpClient { get; private set; } = default!;
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
@@ -36,13 +36,15 @@ public class CustomWebApplication : WebApplicationFactory<Program>, IAsyncLifeti
                 d => d.ServiceType ==
                      typeof(DbContextOptions<FindAFriendContext>));
 
-            services.Remove(dbContextDescriptor);
+            if (dbContextDescriptor is not null)
+                services.Remove(dbContextDescriptor);
 
             var dbConnectionDescriptor = services.SingleOrDefault(
                 d => d.ServiceType ==
                      typeof(DbConnection));
 
-            services.Remove(dbConnectionDescriptor);
+            if (dbConnectionDescriptor is not null)
+                services.Remove(dbConnectionDescriptor);
 
             services.AddDbContext<FindAFriendContext>(options =>
             {
@@ -70,7 +72,7 @@ public class CustomWebApplication : WebApplicationFactory<Program>, IAsyncLifeti
             new RespawnerOptions { DbAdapter = DbAdapter.Postgres, SchemasToInclude = ["public"] });
     }
 
-    public async Task DisposeAsync()
+    public new async Task DisposeAsync()
     {
         await _dbContainer.StopAsync();
     }

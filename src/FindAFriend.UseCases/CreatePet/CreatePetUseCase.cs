@@ -31,14 +31,14 @@ public class CreatePetUseCase(
 
         foreach (var file in request.Files)
         {
-            var uploadFileResponse = await uploadFileService.Upload(new UploadFileRequest(file.Bytes));
+            var uploadFileResponse = await uploadFileService.Upload(new UploadFileRequest(file.Name, file.Bytes));
 
             if (!uploadFileResponse.Success)
                 throw new FileUploadException();
 
             pet.AddPhoto(new Photo(uploadFileResponse.Url, pet.Id));
         }
-    
+
         await petRepository.Add(pet);
     }
 }

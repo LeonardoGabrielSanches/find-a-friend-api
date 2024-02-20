@@ -1,3 +1,3 @@
 namespace FindAFriend.Infra.Common.UploadFile;
 
-public record UploadFileRequest(byte[] File);
+public record UploadFileRequest(string FileName, byte[] File);
