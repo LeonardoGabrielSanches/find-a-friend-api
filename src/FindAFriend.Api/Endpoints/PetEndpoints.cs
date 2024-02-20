@@ -1,24 +1,36 @@
 using System.Net;
 
 using FindAFriend.Domain.Enums;
+using FindAFriend.UseCases.Common.Request;
 using FindAFriend.UseCases.CreatePet;
 
 using Microsoft.AspNetCore.Mvc;
 
 namespace FindAFriend.Api.Endpoints;
 
-public record CreatePetHttpRequest(
-    string Name,
-    string About,
-    EPetAge Age,
-    EPetSize Size,
-    EPetEnergyLevel EnergyLevel,
-    EPetDependencyLevel DependencyLevel,
-    EPetEnvironmentSize EnvironmentSize,
-    EPetGender Gender,
-    Guid InstitutionId,
-    List<IFormFile>? Files = default)
+public class CreatePetHttpRequest(
+    string name,
+    string about,
+    EPetAge age,
+    EPetSize size,
+    EPetEnergyLevel energyLevel,
+    EPetDependencyLevel dependencyLevel,
+    EPetEnvironmentSize environmentSize,
+    EPetGender gender,
+    Guid institutionId,
+    IFormFileCollection files) : Request
 {
+    private string Name { get; } = name;
+    private string About { get; } = about;
+    private EPetAge Age { get; } = age;
+    private EPetSize Size { get; } = size;
+    private EPetEnergyLevel EnergyLevel { get; } = energyLevel;
+    private EPetDependencyLevel DependencyLevel { get; } = dependencyLevel;
+    private EPetEnvironmentSize EnvironmentSize { get; } = environmentSize;
+    private EPetGender Gender { get; } = gender;
+    private Guid InstitutionId { get; } = institutionId;
+    private IFormFileCollection Files { get; } = files;
+
     public static implicit operator CreatePetRequest(CreatePetHttpRequest createPetHttpRequest)
     {
         var createPetRequest = new CreatePetRequest(
@@ -32,7 +44,7 @@ public record CreatePetHttpRequest(
             createPetHttpRequest.Gender,
             createPetHttpRequest.InstitutionId);
 
-        createPetHttpRequest.Files?.ForEach(file =>
+        createPetHttpRequest.Files.ToList().ForEach(file =>
         {
             using var ms = new MemoryStream();
             file.CopyTo(ms);
@@ -41,6 +53,15 @@ public record CreatePetHttpRequest(
         });
 
         return createPetRequest;
+    }
+
+    public async override Task Validate()
+    {
+        var request = (CreatePetRequest)this;
+
+        await request.Validate();
+
+        AddNotifications(request.Notifications.ToList());
     }
 }
 
@@ -58,12 +79,12 @@ public static class PetEndpoints
             .WithOpenApi();
     }
 
-    static async Task CreatePet(
+    static async Task<IResult> CreatePet(
         CreatePetUseCase createPetUseCase,
         [FromForm] CreatePetHttpRequest request)
     {
         await createPetUseCase.Execute(request);
 
-        Results.Created();
+        return Results.Created();
     }
 }

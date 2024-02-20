@@ -26,17 +26,19 @@ public class PetApiTest(CustomWebApplication customWebApplication)
         _httpClient.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue("Bearer", authenticatedUser.Token);
 
-        var content = new MultipartFormDataContent();
+        var formDataBoundary = $"----------{Guid.NewGuid():N}";
+        var content = new MultipartFormDataContent(formDataBoundary);
 
         content.Add(new StringContent("Name"), "Name");
-        // content.Add(new StringContent("About"), "About");
-        // content.Add(new StringContent(EPetAge.Adult.ToString()), "Age");
-        // content.Add(new StringContent(EPetSize.Large.ToString()), "Size");
-        // content.Add(new StringContent(EPetEnergyLevel.Low.ToString()), "EnergyLevel");
-        // content.Add(new StringContent(EPetEnvironmentSize.Small.ToString()), "EnvironmentSize");
-        // content.Add(new StringContent(EPetGender.Female.ToString()), "Gender");
-        // content.Add(new StringContent(authenticatedUser.Id.ToString()), "InstitutionId");
-        // content.Add(new StreamContent(new MemoryStream(new byte[10])), "Files", "file.png");
+        content.Add(new StringContent("About"), "About");
+        content.Add(new StringContent(EPetAge.Adult.ToString()), "Age");
+        content.Add(new StringContent(EPetSize.Large.ToString()), "Size");
+        content.Add(new StringContent(EPetEnergyLevel.Low.ToString()), "EnergyLevel");
+        content.Add(new StringContent(EPetEnvironmentSize.Small.ToString()), "EnvironmentSize");
+        content.Add(new StringContent(EPetDependencyLevel.Low.ToString()), "DependencyLevel");
+        content.Add(new StringContent(EPetGender.Female.ToString()), "Gender");
+        content.Add(new StringContent(authenticatedUser.Id.ToString()), "InstitutionId");
+        content.Add(new StreamContent(new MemoryStream(new byte[10])), "Files[0]", "file.png");
 
         var response = await _httpClient.PostAsync("/api/pets", content);
 

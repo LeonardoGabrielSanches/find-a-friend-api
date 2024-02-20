@@ -9,7 +9,7 @@ public abstract class Request
     public abstract Task Validate();
 
     public IEnumerable<string> Notifications => _notifications;
-    
+
     public bool IsValid => _notifications.Count <= 0;
 
     protected void AddNotifications(ValidationResult validationResult)
@@ -18,5 +18,13 @@ public abstract class Request
             return;
 
         _notifications.AddRange(validationResult.Errors.Select(x => x.ErrorMessage));
+    }
+
+    protected void AddNotifications(List<string> errors)
+    {
+        if (!errors.Any())
+            return;
+
+        _notifications.AddRange(errors);
     }
 }
