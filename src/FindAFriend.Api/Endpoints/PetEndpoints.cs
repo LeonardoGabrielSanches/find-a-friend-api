@@ -17,7 +17,7 @@ public record CreatePetHttpRequest(
     EPetEnvironmentSize EnvironmentSize,
     EPetGender Gender,
     Guid InstitutionId,
-    List<IFormFile> Files)
+    List<IFormFile>? Files = default)
 {
     public static implicit operator CreatePetRequest(CreatePetHttpRequest createPetHttpRequest)
     {
@@ -32,7 +32,7 @@ public record CreatePetHttpRequest(
             createPetHttpRequest.Gender,
             createPetHttpRequest.InstitutionId);
 
-        createPetHttpRequest.Files.ForEach(file =>
+        createPetHttpRequest.Files?.ForEach(file =>
         {
             using var ms = new MemoryStream();
             file.CopyTo(ms);
@@ -48,11 +48,12 @@ public static class PetEndpoints
 {
     public static void RegisterPetEndpoints(this RouteGroupBuilder routeGroupBuilder)
     {
-        var petsGroupBuilder = routeGroupBuilder.MapGroup("pets").RequireAuthorization();
+        var petsGroupBuilder = routeGroupBuilder.MapGroup("pets");
 
         petsGroupBuilder.MapPost("/", CreatePet)
             .WithName("CreatePet")
             .Produces((int)HttpStatusCode.Created)
+            .RequireAuthorization()
             .DisableAntiforgery()
             .WithOpenApi();
     }

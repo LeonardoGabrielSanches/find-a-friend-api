@@ -1,6 +1,8 @@
 using System.Data.Common;
 
+using FindAFriend.Infra.Common.UploadFile;
 using FindAFriend.Infra.Data;
+using FindAFriend.Test.Api.ServiceMocks;
 
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -51,6 +53,8 @@ public class CustomWebApplication : WebApplicationFactory<Program>, IAsyncLifeti
                 options.UseSnakeCaseNamingConvention();
                 options.UseNpgsql(_dbContainer.GetConnectionString());
             });
+
+            services.AddScoped<IUploadFileService, UploadFileServiceMock>();
         });
     }
 
