@@ -23,7 +23,8 @@ public class CreateInstitutionUseCase(
             name: request.Name,
             responsibleName: request.ResponsibleName,
             email: request.Email,
-            new Address("street", 1, "state", "city", "zipCode"),
+            new Address(request.AddressStreet, request.AddressNumber, request.AddressState, request.AddressCity,
+                request.AddressZipCode),
             phone: request.Phone,
             password: passwordHash);
 
