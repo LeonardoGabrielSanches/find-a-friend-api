@@ -13,6 +13,7 @@ public class Pet(
     EPetDependencyLevel dependencyLevel,
     EPetEnvironmentSize environmentSize,
     EPetGender gender,
+    EPetType petType,
     Guid institutionId)
     : Entity
 {
@@ -27,9 +28,12 @@ public class Pet(
     public EPetDependencyLevel DependencyLevel { get; private set; } = dependencyLevel;
     public EPetEnvironmentSize EnvironmentSize { get; private set; } = environmentSize;
     public EPetGender Gender { get; private set; } = gender;
+    public EPetType PetType { get; private set; } = petType;
     public IReadOnlyList<Photo> Photos => _photos;
 
     public Guid InstitutionId { get; private set; } = institutionId;
+
+    public Institution Institution { get; private set; }
 
     public void AddPhoto(Photo photo)
     {

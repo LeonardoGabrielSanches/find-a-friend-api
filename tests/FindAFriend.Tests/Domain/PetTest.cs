@@ -18,6 +18,7 @@ public class PetTest
             energyLevel: EPetEnergyLevel.High,
             dependencyLevel: EPetDependencyLevel.High,
             environmentSize: EPetEnvironmentSize.Small,
+            petType: EPetType.Dog,
             institutionId: Guid.NewGuid());
 
         Assert.NotNull(pet);
@@ -35,6 +36,7 @@ public class PetTest
             energyLevel: EPetEnergyLevel.High,
             dependencyLevel: EPetDependencyLevel.High,
             environmentSize: EPetEnvironmentSize.Small,
+            petType: EPetType.Dog,
             institutionId: Guid.NewGuid());
 
         pet.AddPhoto(new Photo("https://pet.com", pet.Id));
@@ -54,6 +56,7 @@ public class PetTest
             energyLevel: EPetEnergyLevel.High,
             dependencyLevel: EPetDependencyLevel.High,
             environmentSize: EPetEnvironmentSize.Small,
+            petType: EPetType.Cat,
             institutionId: Guid.NewGuid());
 
         pet.AddPhoto(new Photo("https://pet.com", pet.Id));

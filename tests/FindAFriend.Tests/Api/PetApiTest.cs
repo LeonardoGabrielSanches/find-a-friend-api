@@ -33,6 +33,7 @@ public class PetApiTest(CustomWebApplication customWebApplication)
         content.Add(new StringContent(EPetEnvironmentSize.Small.ToString()), "EnvironmentSize");
         content.Add(new StringContent(EPetDependencyLevel.Low.ToString()), "DependencyLevel");
         content.Add(new StringContent(EPetGender.Female.ToString()), "Gender");
+        content.Add(new StringContent(EPetType.Dog.ToString()), "PetType");
         content.Add(new StringContent(authenticatedUser.Id.ToString()), "InstitutionId");
         content.Add(new StreamContent(new MemoryStream(new byte[10])), "Files[0]", "file.png");
 

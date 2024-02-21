@@ -1,8 +1,10 @@
 using System.Net;
+using System.Reflection;
 
 using FindAFriend.Domain.Enums;
 using FindAFriend.UseCases.Common.Request;
 using FindAFriend.UseCases.CreatePet;
+using FindAFriend.UseCases.GetFilteredPets;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,6 +22,19 @@ public static class PetEndpoints
             .RequireAuthorization()
             .DisableAntiforgery()
             .WithOpenApi();
+
+        petsGroupBuilder.MapGet("/", GetFilteredPets)
+            .Produces<IEnumerable<GetFilteredPetsResponse>>()
+            .WithOpenApi();
+    }
+
+    static async Task<IResult> GetFilteredPets(
+        GetFilteredPetsUseCase getFilteredPetsUseCase,
+        [AsParameters] GetFilteredPetsRequest request)
+    {
+        var response = await getFilteredPetsUseCase.Execute(request);
+
+        return Results.Ok(response);
     }
 
     static async Task<IResult> CreatePet(
@@ -41,6 +56,7 @@ public class CreatePetHttpRequest(
     EPetDependencyLevel dependencyLevel,
     EPetEnvironmentSize environmentSize,
     EPetGender gender,
+    EPetType petType,
     Guid institutionId,
     IFormFileCollection files) : Request
 {
@@ -52,6 +68,7 @@ public class CreatePetHttpRequest(
     private EPetDependencyLevel DependencyLevel { get; } = dependencyLevel;
     private EPetEnvironmentSize EnvironmentSize { get; } = environmentSize;
     private EPetGender Gender { get; } = gender;
+    private EPetType PetType { get; } = petType;
     private Guid InstitutionId { get; } = institutionId;
     private IFormFileCollection Files { get; } = files;
 
@@ -66,6 +83,7 @@ public class CreatePetHttpRequest(
             createPetHttpRequest.DependencyLevel,
             createPetHttpRequest.EnvironmentSize,
             createPetHttpRequest.Gender,
+            createPetHttpRequest.PetType,
             createPetHttpRequest.InstitutionId);
 
         createPetHttpRequest.Files.ToList().ForEach(file =>

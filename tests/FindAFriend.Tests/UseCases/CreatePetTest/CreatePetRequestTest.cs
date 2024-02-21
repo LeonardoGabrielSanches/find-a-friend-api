@@ -17,6 +17,7 @@ public class CreatePetRequestTest
             energyLevel: EPetEnergyLevel.High,
             dependencyLevel: EPetDependencyLevel.High,
             environmentSize: EPetEnvironmentSize.Small,
+            petType: EPetType.Dog,
             institutionId: Guid.NewGuid());
 
         request.Files.Add(new CreatePetRequestFiles("name", new byte[1]));
@@ -38,6 +39,7 @@ public class CreatePetRequestTest
             energyLevel: EPetEnergyLevel.High,
             dependencyLevel: EPetDependencyLevel.High,
             environmentSize: EPetEnvironmentSize.Small,
+            petType: EPetType.Dog,
             institutionId: Guid.NewGuid());
 
         await request.Validate();

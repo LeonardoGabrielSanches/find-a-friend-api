@@ -1,14 +1,12 @@
 using FindAFriend.Domain.Repositories;
 using FindAFriend.Infra.Common.Auth;
 using FindAFriend.Infra.Common.UploadFile;
-using FindAFriend.Infra.CrossCutting.UploadFile;
 using FindAFriend.Infra.CrossCutting.UploadFile.Firebase;
 using FindAFriend.Infra.Data.Repositories;
 using FindAFriend.UseCases.AuthenticateInstitution;
 using FindAFriend.UseCases.CreateInstitution;
 using FindAFriend.UseCases.CreatePet;
-
-using Refit;
+using FindAFriend.UseCases.GetFilteredPets;
 
 namespace FindAFriend.Api.Extensions;
 
@@ -36,6 +34,7 @@ public static class ApplicationServicesExtensions
         builder.Services.AddScoped<CreatePetUseCase>();
         builder.Services.AddScoped<CreateInstitutionUseCase>();
         builder.Services.AddScoped<AuthenticateInstitutionUseCase>();
+        builder.Services.AddScoped<GetFilteredPetsUseCase>();
 
         return builder;
     }

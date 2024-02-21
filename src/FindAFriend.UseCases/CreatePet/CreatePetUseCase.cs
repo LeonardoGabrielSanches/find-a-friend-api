@@ -27,6 +27,7 @@ public class CreatePetUseCase(
             request.DependencyLevel,
             request.EnvironmentSize,
             request.Gender,
+            request.PetType,
             request.InstitutionId);
 
         foreach (var file in request.Files)

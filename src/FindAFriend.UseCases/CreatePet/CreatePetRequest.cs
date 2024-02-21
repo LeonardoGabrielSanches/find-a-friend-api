@@ -12,6 +12,7 @@ public class CreatePetRequest(
     EPetDependencyLevel dependencyLevel,
     EPetEnvironmentSize environmentSize,
     EPetGender gender,
+    EPetType petType,
     Guid institutionId) : Request
 {
     public string Name { get; } = name;
@@ -22,6 +23,7 @@ public class CreatePetRequest(
     public EPetDependencyLevel DependencyLevel { get; } = dependencyLevel;
     public EPetEnvironmentSize EnvironmentSize { get; } = environmentSize;
     public EPetGender Gender { get; } = gender;
+    public EPetType PetType { get; } = petType;
     public Guid InstitutionId { get; } = institutionId;
     public List<CreatePetRequestFiles> Files { get; } = [];
 

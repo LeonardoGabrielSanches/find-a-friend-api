@@ -38,6 +38,7 @@ public class CreatePetUseCaseTest
             energyLevel: EPetEnergyLevel.High,
             dependencyLevel: EPetDependencyLevel.High,
             environmentSize: EPetEnvironmentSize.Small,
+            petType: EPetType.Dog,
             institutionId: Guid.NewGuid());
 
         await Assert.ThrowsAsync<ResourceNotFoundException>(() => _sut.Execute(invalidRequest));
@@ -67,6 +68,7 @@ public class CreatePetUseCaseTest
             energyLevel: EPetEnergyLevel.High,
             dependencyLevel: EPetDependencyLevel.High,
             environmentSize: EPetEnvironmentSize.Small,
+            petType: EPetType.Dog,
             institutionId: Guid.NewGuid());
 
         validRequest.AddFile(new CreatePetRequestFiles("file.png", new byte[1]));
@@ -98,6 +100,7 @@ public class CreatePetUseCaseTest
             energyLevel: EPetEnergyLevel.High,
             dependencyLevel: EPetDependencyLevel.High,
             environmentSize: EPetEnvironmentSize.Small,
+            petType: EPetType.Dog,
             institutionId: Guid.NewGuid());
 
         validRequest.AddFile(new CreatePetRequestFiles("file.png", new byte[1]));
