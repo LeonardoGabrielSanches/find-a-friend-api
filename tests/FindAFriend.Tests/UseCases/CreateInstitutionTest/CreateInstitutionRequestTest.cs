@@ -11,8 +11,11 @@ public class CreateInstitutionRequestTest
             name: "Institution",
             responsibleName: "Responsible",
             email: "email@example.com",
-            zipCode: "12345",
-            address: "Address",
+            addressZipCode: "zipCode",
+            addressCity: "city",
+            addressNumber: 1,
+            addressState: "state",
+            addressStreet: "street",
             phone: "123456789",
             password: "oneLetter1Number@");
 
@@ -28,8 +31,11 @@ public class CreateInstitutionRequestTest
             name: "Institution",
             responsibleName: "Responsible",
             email: "email@example.com",
-            zipCode: "12345",
-            address: "Address",
+            addressZipCode: "zipCode",
+            addressCity: "city",
+            addressNumber: 1,
+            addressState: "state",
+            addressStreet: "street",
             phone: "123456789",
             password: "123@");
 

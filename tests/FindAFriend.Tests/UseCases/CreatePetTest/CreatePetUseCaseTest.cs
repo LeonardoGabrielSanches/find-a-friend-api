@@ -2,6 +2,7 @@ using FindAFriend.Domain;
 using FindAFriend.Domain.Enums;
 using FindAFriend.Domain.Exceptions;
 using FindAFriend.Domain.Repositories;
+using FindAFriend.Domain.ValueObjects;
 using FindAFriend.Infra.Common.UploadFile;
 using FindAFriend.UseCases.CreatePet;
 using FindAFriend.UseCases.CreatePet.Exceptions;
@@ -50,8 +51,7 @@ public class CreatePetUseCaseTest
                 name: "Institution",
                 responsibleName: "Responsible",
                 email: "email@example.com",
-                zipCode: "12345",
-                address: "Address",
+                address: new Address("street", 1, "state", "city", "zipCode"),
                 phone: "123456789",
                 password: "oneLetter1Number@"));
 
@@ -82,8 +82,7 @@ public class CreatePetUseCaseTest
                 name: "Institution",
                 responsibleName: "Responsible",
                 email: "email@example.com",
-                zipCode: "12345",
-                address: "Address",
+                address: new Address("street", 1, "state", "city", "zipCode"),
                 phone: "123456789",
                 password: "oneLetter1Number@"));
 

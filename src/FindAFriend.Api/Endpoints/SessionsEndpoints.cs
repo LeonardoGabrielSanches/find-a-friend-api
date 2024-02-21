@@ -51,8 +51,11 @@ public static class SessionsEndpoints
         {
             response.Name,
             response.ResponsibleName,
-            response.ZipCode,
-            response.Address,
+            response.AddressStreet,
+            response.AddressNumber,
+            response.AddressZipCode,
+            response.AddressCity,
+            response.AddressState,
             response.Phone,
             token
         });

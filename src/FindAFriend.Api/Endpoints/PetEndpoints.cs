@@ -8,6 +8,30 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FindAFriend.Api.Endpoints;
 
+public static class PetEndpoints
+{
+    public static void RegisterPetEndpoints(this RouteGroupBuilder routeGroupBuilder)
+    {
+        var petsGroupBuilder = routeGroupBuilder.MapGroup("pets");
+
+        petsGroupBuilder.MapPost("/", CreatePet)
+            .WithName("CreatePet")
+            .Produces((int)HttpStatusCode.Created)
+            .RequireAuthorization()
+            .DisableAntiforgery()
+            .WithOpenApi();
+    }
+
+    static async Task<IResult> CreatePet(
+        CreatePetUseCase createPetUseCase,
+        [FromForm] CreatePetHttpRequest request)
+    {
+        await createPetUseCase.Execute(request);
+
+        return Results.Created();
+    }
+}
+
 public class CreatePetHttpRequest(
     string name,
     string about,
@@ -62,29 +86,5 @@ public class CreatePetHttpRequest(
         await request.Validate();
 
         AddNotifications(request.Notifications.ToList());
-    }
-}
-
-public static class PetEndpoints
-{
-    public static void RegisterPetEndpoints(this RouteGroupBuilder routeGroupBuilder)
-    {
-        var petsGroupBuilder = routeGroupBuilder.MapGroup("pets");
-
-        petsGroupBuilder.MapPost("/", CreatePet)
-            .WithName("CreatePet")
-            .Produces((int)HttpStatusCode.Created)
-            .RequireAuthorization()
-            .DisableAntiforgery()
-            .WithOpenApi();
-    }
-
-    static async Task<IResult> CreatePet(
-        CreatePetUseCase createPetUseCase,
-        [FromForm] CreatePetHttpRequest request)
-    {
-        await createPetUseCase.Execute(request);
-
-        return Results.Created();
     }
 }

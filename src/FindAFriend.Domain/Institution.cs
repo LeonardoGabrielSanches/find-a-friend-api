@@ -1,28 +1,34 @@
 using FindAFriend.Domain.Core;
+using FindAFriend.Domain.ValueObjects;
 
 namespace FindAFriend.Domain;
 
-public class Institution(
-    string name,
-    string responsibleName,
-    string email,
-    string zipCode,
-    string address,
-    string phone,
-    string password)
-    : Entity
+public class Institution : Entity
 {
+    protected Institution() { }
+
+    public Institution(string name, string responsibleName, string email, Address address, string phone,
+        string password)
+    {
+        Name = name;
+        ResponsibleName = responsibleName;
+        Email = email;
+        Address = address;
+        Phone = phone;
+        Password = password;
+    }
+
     private readonly List<Pet> _pets = [];
 
-    public string Name { get; private set; } = name;
-    public string ResponsibleName { get; private set; } = responsibleName;
-    public string Email { get; private set; } = email;
-    public string ZipCode { get; private set; } = zipCode;
-    public string Address { get; private set; } = address;
-    public string Phone { get; private set; } = phone;
-    public string Password { get; private set; } = password;
-    public IReadOnlyList<Pet> Pets => _pets;
+    public string Name { get; private set; }
+    public string ResponsibleName { get; private set; }
+    public string Email { get; private set; }
 
-    public void AddPet(Pet pet)
-        => _pets.Add(pet);
+    public Address Address { get; private set; }
+
+    public string Phone { get; private set; }
+    public string Password { get; private set; }
+    public IEnumerable<Pet> Pets => _pets;
+
+    public void AddPet(Pet pet) => _pets.Add(pet);
 }

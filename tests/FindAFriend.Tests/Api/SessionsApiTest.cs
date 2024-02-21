@@ -26,8 +26,11 @@ public class SessionsApiTest(CustomWebApplication customWebApplication)
             name: "Institution",
             responsibleName: "Responsible",
             email: email,
-            zipCode: "12345",
-            address: "Address",
+            addressZipCode: "zipCode",
+            addressCity: "city",
+            addressNumber: 1,
+            addressState: "state",
+            addressStreet: "street",
             phone: "123456789",
             password: password));
 
@@ -55,8 +58,11 @@ public class SessionsApiTest(CustomWebApplication customWebApplication)
             name: "Institution",
             responsibleName: "Responsible",
             email: email,
-            zipCode: "12345",
-            address: "Address",
+            addressZipCode: "zipCode",
+            addressCity: "city",
+            addressNumber: 1,
+            addressState: "state",
+            addressStreet: "street",
             phone: "123456789",
             password: password));
 

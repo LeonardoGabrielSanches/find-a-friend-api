@@ -7,8 +7,11 @@ public record AuthenticateInstitutionResponse(
     string Email,
     string Name,
     string ResponsibleName,
-    string ZipCode,
-    string Address,
+    string AddressZipCode,
+    string AddressStreet,
+    int AddressNumber,
+    string AddressState,
+    string AddressCity,
     string Phone)
 {
     public static AuthenticateInstitutionResponse MapResponse(
@@ -19,8 +22,11 @@ public record AuthenticateInstitutionResponse(
             institution.Email,
             institution.Name,
             institution.ResponsibleName,
-            institution.ZipCode,
-            institution.Address,
+            institution.Address.ZipCode,
+            institution.Address.Street,
+            institution.Address.Number,
+            institution.Address.State,
+            institution.Address.City,
             institution.Phone);
     }
 };

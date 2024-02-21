@@ -20,11 +20,14 @@ public class InstitutionApiTest(CustomWebApplication customWebApplication)
             name: "Institution",
             responsibleName: "Responsible",
             email: "email2@example.com",
-            zipCode: "12345",
-            address: "Address",
+            addressZipCode: "zipCode",
+            addressCity: "city",
+            addressNumber: 1,
+            addressState: "state",
+            addressStreet: "street",
             phone: "123456789",
             password: "oneLetter1Number@"));
-
+        
         response.EnsureSuccessStatusCode();
 
         Assert.Equal(HttpStatusCode.Created, response.StatusCode);

@@ -1,5 +1,6 @@
 using FindAFriend.Domain;
 using FindAFriend.Domain.Repositories;
+using FindAFriend.Domain.ValueObjects;
 using FindAFriend.Infra.Common.Auth;
 using FindAFriend.UseCases.CreateInstitution;
 using FindAFriend.UseCases.CreateInstitution.Exceptions;
@@ -25,16 +26,19 @@ public class CreateInstitutionUseCaseTest
     public async Task ShouldNot_CreateANewInstitution_WithSameEmail()
     {
         _institutionRepository.Setup(x => x.GetByEmail(It.IsAny<string>())).ReturnsAsync(new Institution("name",
-            "responsibleName", "email", "zipCode", "address", "phone", "password"));
+            "responsibleName", "email", new Address("street", 1, "state", "city", "zipCode"), "phone", "password"));
 
         var validRequest = new CreateInstitutionRequest(
-            "name",
-            "responsibleName",
-            "email@example.com",
-            "zipCode",
-            "address",
-            "phone",
-            "password@1234");
+            name: "name",
+            responsibleName: "responsibleName",
+            email: "email@example.com",
+            addressZipCode: "zipCode",
+            addressCity: "city",
+            addressNumber: 1,
+            addressState: "state",
+            addressStreet: "street",
+            phone: "phone",
+            password: "password@1234");
 
         await Assert.ThrowsAsync<InstitutionAlreadyRegisteredException>(() => _sut.Execute(validRequest));
     }
@@ -43,13 +47,16 @@ public class CreateInstitutionUseCaseTest
     public async Task Should_CreateANewInstitution()
     {
         var validRequest = new CreateInstitutionRequest(
-            "name",
-            "responsibleName",
-            "email@example.com",
-            "zipCode",
-            "address",
-            "phone",
-            "oneLetter1Number@");
+            name: "name",
+            responsibleName: "responsibleName",
+            email: "email@example.com",
+            addressZipCode: "zipCode",
+            addressCity: "city",
+            addressNumber: 1,
+            addressState: "state",
+            addressStreet: "street",
+            phone: "phone",
+            password: "oneLetter1Number@");
 
         await _sut.Execute(validRequest);
 

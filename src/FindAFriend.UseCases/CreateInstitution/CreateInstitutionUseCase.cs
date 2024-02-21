@@ -1,5 +1,6 @@
 using FindAFriend.Domain;
 using FindAFriend.Domain.Repositories;
+using FindAFriend.Domain.ValueObjects;
 using FindAFriend.Infra.Common.Auth;
 using FindAFriend.UseCases.CreateInstitution.Exceptions;
 
@@ -22,8 +23,7 @@ public class CreateInstitutionUseCase(
             name: request.Name,
             responsibleName: request.ResponsibleName,
             email: request.Email,
-            zipCode: request.ZipCode,
-            address: request.Address,
+            new Address("street", 1, "state", "city", "zipCode"),
             phone: request.Phone,
             password: passwordHash);
 

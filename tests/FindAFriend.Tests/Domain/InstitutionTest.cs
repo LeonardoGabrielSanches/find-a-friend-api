@@ -1,4 +1,5 @@
 using FindAFriend.Domain;
+using FindAFriend.Domain.ValueObjects;
 
 namespace FindAFriend.Test.Domain;
 
@@ -11,8 +12,7 @@ public class InstitutionTest
             name: "Institution",
             responsibleName: "Responsible",
             email: "email@example.com",
-            zipCode: "12345",
-            address: "Address",
+            address: new Address("street", 1, "state", "city", "zipCode"),
             phone: "123456789",
             password: "oneLetter1Number@");
 

@@ -1,10 +1,10 @@
 using System.Net.Http.Json;
 
 using FindAFriend.Domain;
+using FindAFriend.Domain.ValueObjects;
 using FindAFriend.Infra.Common.Auth;
 using FindAFriend.Infra.Data;
 using FindAFriend.UseCases.AuthenticateInstitution;
-using FindAFriend.UseCases.CreateInstitution;
 
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,7 +12,7 @@ namespace FindAFriend.Test.Api.Helpers;
 
 record AuthResponseToken(string Token);
 
-public record AuthenticatedUser(Guid Id, string Email, string Token);
+public record AuthenticatedUser(Guid Id, string Token);
 
 public static class AuthHelper
 {
@@ -27,11 +27,11 @@ public static class AuthHelper
             email = "email2@example.com",
             password = "oneLetter1Number@";
 
-        var institution = new Institution(name: "Institution",
+        var institution = new Institution(
+            name: "Institution",
             responsibleName: "Responsible",
             email: email,
-            zipCode: "12345",
-            address: "Address",
+            address: new Address("street", 1, "state", "city", "zipCode"),
             phone: "123456789",
             password: passwordHasher.HashPassword(password));
 
@@ -46,6 +46,6 @@ public static class AuthHelper
 
         var content = await response.Content.ReadFromJsonAsync<AuthResponseToken>();
 
-        return new AuthenticatedUser(institution.Id, email, content!.Token);
+        return new AuthenticatedUser(institution.Id, content!.Token);
     }
 }
